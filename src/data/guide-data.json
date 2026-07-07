@@ -1,0 +1,541 @@
+{
+ "subtitle": "Tracking, nutrition, and the principles behind the plan.",
+ "tabs": [
+  {
+   "id": "track",
+   "title": "Tracking",
+   "sections": [
+    {
+     "title": "How to Know If It's Working",
+     "intro": "Progress in a recomposition (fat loss + muscle gain) phase is slow and non-linear. Don't rely on the scale — it can stay flat for weeks while body composition improves. Use multiple data points over 2–4 week windows.",
+     "items": [],
+     "accent": ""
+    },
+    {
+     "title": "Weekly Tracking — Non-Negotiables",
+     "intro": "",
+     "items": [
+      {
+       "label": "Log every set",
+       "text": "Use the Train tab here (or a notebook). Record exercise, weight, reps, and RIR. Without a log, progressive overload is guesswork."
+      },
+      {
+       "label": "RIR (Reps In Reserve)",
+       "text": "Aim for 1–3 RIR on most working sets; 0–1 only on the final set of compounds. Hit the top of the rep range with 2+ RIR? The weight is too light — add load next session."
+      },
+      {
+       "label": "Photos & measurements",
+       "text": "Photos front/side/back, same lighting & time, every 2 weeks. Tape: waist (navel), hips (widest), thigh, upper arm, chest — weekly, fasted, AM. Female: track waist-to-hip ratio for glute feedback."
+      },
+      {
+       "label": "Body weight",
+       "text": "Daily AM weigh-ins, take the 7-day rolling average. Single-day swings are water/food/hormonal noise. The TREND matters."
+      },
+      {
+       "label": "Strength benchmarks (every 4 weeks)",
+       "text": "Test a top set of 5–8 on bench, squat, deadlift, hip thrust (F), barbell row (F), overhead press. Strength up = muscle up, even when the scale doesn't move."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Progressive Overload Decision Tree",
+     "intro": "Each session, check last week's log for the exercise and apply ONE:",
+     "items": [
+      {
+       "label": "✓ Top of range, RIR 1–2 → Add load",
+       "text": "Upper body +1–2.5 kg, lower +2.5–5 kg. No micro-plates? Add 1 rep across all sets until the next jump is doable."
+      },
+      {
+       "label": "✓ Middle of range → Add reps",
+       "text": "Same weight, +1 rep per set. Reach the top across all sets, then jump load."
+      },
+      {
+       "label": "⚠ Missed bottom of range ×2 → Deload that lift",
+       "text": "Drop load 10%, rebuild. Often a sleep/nutrition/recovery signal — investigate."
+      },
+      {
+       "label": "⚠ Stalled 2+ wks on multiple lifts → Full deload",
+       "text": "Cut working sets 40–50% and load 10–15% for one week, then resume."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "When to Change the Program",
+     "intro": "",
+     "items": [
+      {
+       "label": "Weeks 1–4: Adaptation",
+       "text": "Change nothing. Own the movements. Light progression only."
+      },
+      {
+       "label": "Weeks 5–8: Progression",
+       "text": "Aggressive load progression. Add 1 set to priority muscles (back/glutes for female) if recovery allows."
+      },
+      {
+       "label": "Week 9: Deload",
+       "text": "Mandatory recovery week."
+      },
+      {
+       "label": "Weeks 10–16: Phase 2",
+       "text": "Swap variations (barbell row → Pendlay; back squat → front squat; flat → low-incline). Same muscles, fresh stimulus. Keep the Push/Pull structure."
+      },
+      {
+       "label": "After 16 weeks → Reassess",
+       "text": "Compare photos/measurements to baseline. Adjust priorities by what lagged. If fat loss plateaus, recalc macros (Nutrition)."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Recomposition Reality Check",
+     "intro": "Expect: scale −0.25 to −0.5 kg/week (slower for the female); muscle 0.5–1 kg/month (M), 0.25–0.5 kg/month (F); fat loss visible in 4–6 weeks; strength in 2–3 weeks. If after 4 weeks nothing changed (measurements, photos, strength, scale), there's a calorie/protein gap. If the scale drops >0.7 kg/week and strength falls, calories are too low. Adjust 100–150 kcal at a time.",
+     "items": [],
+     "accent": ""
+    }
+   ]
+  },
+  {
+   "id": "nutri",
+   "title": "Nutrition",
+   "sections": [
+    {
+     "title": "Nutrition Philosophy",
+     "intro": "Built around chicken and potatoes as protein/carb anchors, with rotating fibre sources. Goal: a modest calorie deficit with high protein to drive recomposition — fat loss while building muscle. Macros are starting points; adjust from the Tracking feedback after 2–3 weeks.",
+     "items": [],
+     "accent": ""
+    },
+    {
+     "title": "Daily Macro Targets",
+     "intro": "",
+     "items": [
+      {
+       "label": "MALE (30s, ~80–85 kg, moderate activity)",
+       "text": "Calories: ~2,200–2,400 kcal (deficit 300–400) Protein: 170–190 g (≈2.0–2.2 g/kg) — PRIORITY Carbs: 220–250 g (around training) Fat: 65–75 g (≈0.8 g/kg) Fibre: 35–40 g · Water: 3–3.5 L",
+       "who": "male"
+      },
+      {
+       "label": "FEMALE (30s, ~60–70 kg, moderate activity)",
+       "text": "Calories: ~1,700–1,900 kcal (deficit 250–350) Protein: 130–150 g (≈2.0–2.2 g/kg) — PRIORITY Carbs: 160–190 g (around training) Fat: 55–65 g (≈0.9 g/kg, hormonal health) Fibre: 28–32 g · Water: 2.5–3 L",
+       "who": "female"
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Sample Day — MALE",
+     "intro": "Chicken & potato anchored. ~2,300 kcal / 180g P / 230g C / 70g F / 38g fibre.",
+     "items": [
+      {
+       "label": "Breakfast ≈500 kcal",
+       "text": "3 whole eggs + 2 whites scrambled w/ spinach & tomato · 1 slice wholegrain toast · 1 small apple · black coffee ≈ 40P / 35C / 22F / 7 fibre"
+      },
+      {
+       "label": "Lunch ≈600 kcal — chicken & potato",
+       "text": "200g grilled chicken breast · 300g roasted baby potatoes (skin on) · big salad: greens, cucumber, capsicum, ½ avocado, olive oil + lemon · 1 tbsp pumpkin seeds ≈ 55P / 55C / 20F / 11 fibre"
+      },
+      {
+       "label": "Pre/Intra ≈250 kcal",
+       "text": "Greek yoghurt 200g (0%) + ½ cup oats + 1 tbsp honey + berries ≈ 25P / 40C / 3F / 6 fibre"
+      },
+      {
+       "label": "Dinner ≈700 kcal — chicken & potato",
+       "text": "200g chicken thighs (skinless) · 350g baked sweet potato · 200g broccoli + green beans · 1 tsp olive oil · garlic & herbs ≈ 50P / 70C / 18F / 12 fibre"
+      },
+      {
+       "label": "Evening ≈250 kcal",
+       "text": "1 scoop whey OR 200g low-fat cottage cheese · 1 kiwi/pear · 20g almonds ≈ 30P / 25C / 12F / 4 fibre"
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Sample Day — FEMALE",
+     "intro": "Same anchors, smaller portions. ~1,800 kcal / 140g P / 175g C / 60g F / 30g fibre.",
+     "items": [
+      {
+       "label": "Breakfast ≈400 kcal",
+       "text": "2 whole eggs + 2 whites scrambled w/ spinach · 1 slice wholegrain toast · ½ avocado · black coffee ≈ 28P / 25C / 20F / 7 fibre"
+      },
+      {
+       "label": "Lunch ≈450 kcal — chicken & potato",
+       "text": "150g grilled chicken breast · 200g roasted baby potatoes (skin on) · big salad: greens, cucumber, capsicum, cherry tomatoes, 1 tbsp olive oil + lemon ≈ 42P / 40C / 14F / 8 fibre"
+      },
+      {
+       "label": "Pre/Intra ≈200 kcal",
+       "text": "Greek yoghurt 150g (0%) + ¼ cup oats + berries ≈ 20P / 25C / 2F / 4 fibre"
+      },
+      {
+       "label": "Dinner ≈550 kcal — chicken & potato",
+       "text": "150g chicken thighs (skinless) · 250g baked sweet potato · 200g broccoli + green beans · 1 tsp olive oil · garlic & herbs ≈ 38P / 55C / 15F / 10 fibre"
+      },
+      {
+       "label": "Evening ≈200 kcal",
+       "text": "150g low-fat cottage cheese OR 1 scoop whey · 1 kiwi · 10g almonds ≈ 22P / 18C / 8F / 3 fibre"
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Accessible Fibre Sources (Rotate)",
+     "intro": "Fibre is non-negotiable for satiety in a deficit, gut health, and longevity. Aim for variety:",
+     "items": [
+      {
+       "label": "",
+       "text": "Veg: broccoli, spinach, kale, cauliflower, carrots, Brussels sprouts, capsicum, cabbage, zucchini Fruit: berries, apples, pears, kiwi (skin), oranges, bananas (limit if cutting) Grains: oats, wholegrain bread, brown rice, quinoa Legumes: lentils, chickpeas, black/kidney beans Seeds/nuts: chia, flax, pumpkin seeds, almonds, walnuts Potatoes: sweet potato, baby potatoes — KEEP THE SKIN"
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Beyond Macros",
+     "intro": "",
+     "items": [
+      {
+       "label": "Micronutrients",
+       "text": "Vitamin D (1000–2000 IU if indoor), Omega-3 (fatty fish 2×/wk or 1g EPA+DHA), Magnesium (300–400mg, sleep/recovery), Iron (esp. female — leafy greens, red meat 1–2×/wk)."
+      },
+      {
+       "label": "Sleep",
+       "text": "7–9 h/night, consistent. The biggest predictor of recovery, hunger hormones, and body comp. Poor sleep wrecks progress faster than any diet error."
+      },
+      {
+       "label": "Pre-workout fuelling",
+       "text": "1.5–2 h before: ~30g protein + 40–60g carbs."
+      },
+      {
+       "label": "Refeed / diet break",
+       "text": "Every 6–8 weeks, eat at maintenance 4–7 days. Restores leptin, eases metabolic adaptation. Don't binge — same foods, just more."
+      },
+      {
+       "label": "Alcohol",
+       "text": "Counts as 7 kcal/g. >2 drinks blunts protein synthesis ~24h. Keep to rest days, not pre-training."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Training Day vs Rest Day",
+     "intro": "Protein stays identical every day. Carbs and calories flex around training:",
+     "items": [
+      {
+       "label": "Training days (4u00d7/wk)",
+       "text": "Add 30u201350g carbs vs the base plan, placed in the pre- and post-workout meals (bigger oats serve, extra 100g potato). Calories land at the TOP of your range."
+      },
+      {
+       "label": "Rest days (3u00d7/wk)",
+       "text": "Drop 30u201350g carbs (halve the snack oats, smaller potato serve), add a little fat for satiety (extra u00bc avocado or 10g nuts). Calories land at the BOTTOM of your range."
+      },
+      {
+       "label": "Why",
+       "text": "Carbs fuel sessions and refill muscle glycogen — centring them on training days improves performance while keeping the weekly deficit intact."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Protein Distribution — The Growth Multiplier",
+     "intro": "",
+     "items": [
+      {
+       "label": "4u20135 feedings/day",
+       "text": "30u201350g protein each (u22480.4u20130.5 g/kg per meal). The sample days already do this — donu2019t skip meals and u201cbanku201d protein into one giant dinner; muscle protein synthesis caps per sitting."
+      },
+      {
+       "label": "Pre-sleep protein",
+       "text": "The evening cottage cheese / casein-style serve isnu2019t filler — slow-digesting protein before bed supports overnight muscle repair. Keep it."
+      },
+      {
+       "label": "Post-workout",
+       "text": "30u201350g protein + 60u201390g carbs within ~2h of training. The dinner is built for exactly this."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Meal Prep Protocol (2 cooks/week)",
+     "intro": "",
+     "items": [
+      {
+       "label": "Sunday batch (Monu2013Wed)",
+       "text": "Grill/bake 1.5u20132 kg chicken (mix breast + thigh) u00b7 tray-roast 1.5 kg baby potatoes + 1 kg sweet potato u00b7 steam 3 bags of greens u00b7 portion into containers at the cooked weights in your plan."
+      },
+      {
+       "label": "Wednesday top-up (Thuu2013Sun)",
+       "text": "Repeat at half size. Salads assembled fresh daily (5 min)."
+      },
+      {
+       "label": "Rotate sauces, not foods",
+       "text": "Same chicken + potatoes, different week: peri-peri u00b7 lemon-herb u00b7 smoked paprika + garlic yoghurt u00b7 soy-ginger-chilli u00b7 chimichurri u00b7 tikka + mint yoghurt. Sauces run ~30u201360 kcal — log loosely, donu2019t fear them. Boredom kills diets, not sauce."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Substitutions (Macro-Matched)",
+     "intro": "",
+     "items": [
+      {
+       "label": "Chicken breast u2194",
+       "text": "Turkey breast (1:1) u00b7 white fish like basa/cod (1:1) u00b7 5% lean beef mince (u22480.9:1) u00b7 canned tuna in springwater u00b7 firm tofu (1.5:1 — protein is lower)."
+      },
+      {
+       "label": "Potatoes u2194",
+       "text": "300g potato u2248 180g cooked white rice u2248 200g cooked quinoa u2248 180g couscous u2248 2 small wholegrain wraps. Staying with potatoes? Keep the skin."
+      },
+      {
+       "label": "Greek yoghurt u2194",
+       "text": "Skyr (1:1) u00b7 cottage cheese (1:1) u00b7 whey mixed in milk."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Supplement Stack (Evidence-Tiered)",
+     "intro": "",
+     "items": [
+      {
+       "label": "Take daily",
+       "text": "Creatine monohydrate 5g — any time, every day, both of you u00b7 Vitamin D 1000u20132000 IU with a fat-containing meal u00b7 Omega-3 ~1g EPA+DHA if not eating fatty fish 2u00d7/wk."
+      },
+      {
+       "label": "Use as tools",
+       "text": "Whey — only to close the gap to your protein target u00b7 Caffeine 200u2013300mg 30u201345 min pre-workout, hard cutoff 8h before bed u00b7 Magnesium glycinate 300u2013400mg evenings if sleep is restless."
+      },
+      {
+       "label": "Skip — money wasters",
+       "text": "BCAAs (redundant with adequate protein) u00b7 fat burners u00b7 testosterone boosters u00b7 greens powders as a vegetable replacement."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "When Fat Loss Stalls — Adjustment Ladder",
+     "intro": "u201cStalledu201d = 2u20133 weeks with no change in 7-day average weight, measurements, or photos. Apply ONE rung at a time, give it 2 weeks:",
+     "items": [
+      {
+       "label": "1. Audit first",
+       "text": "Tighten logging for one week — oils, sauces, bites, drinks. Most stalls are tracking drift, not metabolism."
+      },
+      {
+       "label": "2. Add movement",
+       "text": "+2,000 steps/day before cutting any food."
+      },
+      {
+       "label": "3. Trim slightly",
+       "text": "u2212100u2013150 kcal/day from carbs or fat. NEVER cut protein."
+      },
+      {
+       "label": "4. Diet break",
+       "text": "After 10u201312 weeks of dieting, take 1u20132 weeks at maintenance, then resume. This is part of the plan, not failure."
+      }
+     ],
+     "accent": ""
+    }
+   ]
+  },
+  {
+   "id": "princ",
+   "title": "Principles",
+   "sections": [
+    {
+     "title": "Programming Principles",
+     "intro": "",
+     "items": [
+      {
+       "label": "ð¬ 2× Weekly Frequency",
+       "text": "Training each muscle ≥2×/week beats once-weekly for hypertrophy (Schoenfeld 2016). Push/Pull hits this in 4 sessions — upper + lower trained every gym day."
+      },
+      {
+       "label": "⚖️ Aligned Push & Pull Days",
+       "text": "Both programs share the structure: Day 1 & 3 = Push, Day 2 & 4 = Pull. Train together, each on their own variation."
+      },
+      {
+       "label": "ð¦´ Joint-First Selection",
+       "text": "Trap-bar deadlifts (M) for less spinal shear, chest-supported rows, moderate inclines, controlled tempo, mandatory face pulls. Compounds first when freshest."
+      },
+      {
+       "label": "ð§ Anti-Imbalance",
+       "text": "Single-leg work every push session; unilateral rows (F) on pull days to prevent dominant-side overdevelopment."
+      },
+      {
+       "label": "ð Progressive Overload",
+       "text": "Add 1–2.5 kg upper / 2.5–5 kg lower when you hit the top of the range at 1–2 RIR. Deload every 4–6 weeks (−40–50% volume)."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Longevity-Specific Additions",
+     "intro": "",
+     "items": [
+      {
+       "label": "Warm-Up",
+       "text": "5 min light cardio + band pull-aparts + bodyweight squats + arm circles. Lubricates joints."
+      },
+      {
+       "label": "Tempo",
+       "text": "3-1-2-0 on most lifts. Cuts momentum-based joint stress, raises time under tension."
+      },
+      {
+       "label": "Zone 2 Cardio",
+       "text": "20–30 min easy cardio (60–70% max HR) on 2–3 rest days. Boosts mitochondrial health (Cell Metabolism 2024)."
+      },
+      {
+       "label": "Mobility",
+       "text": "5–10 min post-session: hip 90/90, thoracic rotations, shoulder sleeper stretch, ankle dorsiflexion."
+      },
+      {
+       "label": "Deload",
+       "text": "Every 4–6 weeks reduce sets 40–50% and load 10–15%. Tendons adapt 6–10× slower than muscle."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "⚠ Shoulder Injury Protocol (Both)",
+     "intro": "Both have a right-shoulder history that's currently symptom-free. Keep it that way:",
+     "items": [
+      {
+       "label": "Daily prehab (5 min)",
+       "text": "Band external rotations 2×15, band pull-aparts 2×20, wall slides 2×10 — every gym day before warming up. Insurance, not optional."
+      },
+      {
+       "label": "Mandatory modifications",
+       "text": "NEVER: behind-the-neck pulldowns/presses, narrow-grip upright rows, dips below 90°, bench with elbows flared 90°. ALWAYS: face pulls every pull day, lateral raises with slight forward lean & thumbs up, neutral-grip pressing."
+      },
+      {
+       "label": "Pain vs discomfort",
+       "text": "Muscle burn = good. Joint pinch / sharp pain / next-day lingering = stop, ice 10 min, swap to a pain-free variation."
+      },
+      {
+       "label": "Monthly asymmetry check",
+       "text": "Compare L vs R on single-arm row, single-arm press, lateral raise. >15% gap → reduce the strong side 10% and add 1 set to the weak side until even."
+      },
+      {
+       "label": "Warning signs",
+       "text": "Night pain, directional weakness, or painful clicking → get a physio assessment before more pressing/overhead work."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Things Often Missed",
+     "intro": "",
+     "items": [
+      {
+       "label": "Steps",
+       "text": "8,000–10,000/day outside training. The most underrated fat-loss tool — joint-friendly, low cortisol."
+      },
+      {
+       "label": "Menstrual cycle (female)",
+       "text": "Strength peaks follicular (post-period→ovulation), dips late luteal (pre-period). Track across full cycles; don't panic at weekly dips."
+      },
+      {
+       "label": "Caffeine timing",
+       "text": "200–400mg pre-workout helps. Cut off 8 h before bed (half-life ~5h) to protect sleep."
+      },
+      {
+       "label": "Creatine monohydrate",
+       "text": "5g/day, any time. Most-researched supplement: ~5% strength, modest hypertrophy, safe. Both should take it."
+      },
+      {
+       "label": "Stress & cortisol",
+       "text": "Chronic stress tanks recovery & promotes fat storage. If life is stressful, cut training volume 20% — not the reverse."
+      },
+      {
+       "label": "Annual bloodwork",
+       "text": "Baseline: lipids, HbA1c, vitamin D, B12, iron/ferritin, TSH, testosterone (M), CMP. Repeat yearly."
+      },
+      {
+       "label": "Footwear",
+       "text": "Flat-soled shoes (Converse, Metcon, lifters, barefoot-style) for squats/deadlifts/hip thrusts. Running shoes compress and kill force transfer."
+      },
+      {
+       "label": "Don't program-hop",
+       "text": "Trust the structure 12–16 weeks before judging. Boredom isn't a reason to switch — progress is non-linear."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Why Exercises Sit Where They Do",
+     "intro": "",
+     "items": [
+      {
+       "label": "Leg curls on Pull days",
+       "text": "Hamstrings are knee flexors & hip extensors — both pulling functions — so they pair with deadlifts/rows. Quad isolation would be a push-day item."
+      },
+      {
+       "label": "Squats on Push, Deadlifts on Pull",
+       "text": "Squat = knee-dominant push; deadlift = hip-dominant pull. That's why legs split this way instead of a separate day."
+      },
+      {
+       "label": "Hip thrusts on Pull (female)",
+       "text": "Hip extension = pulling pattern (glutes/hams contract). Biomechanically belongs with deadlifts."
+      },
+      {
+       "label": "Face pulls every Pull day",
+       "text": "Best shoulder prehab there is. The repetition is intentional insurance, not redundancy."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Female: Back & Glute Specialisation",
+     "intro": "Two priorities: back and glutes . Pull A = thickness (deadlift, bent-over row, T-bar row, face pulls, straight-arm pulldown) + heavy barbell hip thrust. Pull B = width (pull-ups/wide pulldown, close-grip pulldown, single-arm row, reverse fly) + single-leg hip thrust & cable pull-through. Push days stay glute-biased (deep squats, long-stride lunges, sumo squats, kickbacks). ~28 back + ~22 glute sets/week — both above the threshold for max hypertrophy. Chest trimmed to ~9 sets to fit the ~65-min window.",
+     "items": [],
+     "accent": "pink"
+    },
+    {
+     "title": "Day Alignment",
+     "intro": "Both share the rhythm Push A → Pull A → Rest → Push B → Pull B → Rest → Rest . Same gym days, same movement focus; she loads back & glutes harder on pull days, he runs his own intensity. Shared recovery pattern simplifies scheduling.",
+     "items": [],
+     "accent": ""
+    },
+    {
+     "title": "Lift Intensity Playbook — How Hard Each Lift Should Be",
+     "intro": "Every exercise in the Plan tab now carries a colour-coded intensity tag. Going 100% on everything every week is the fastest route to a stall or an injury. The system:",
+     "items": [
+      {
+       "label": "CNS-HEAVY — deadlifts",
+       "text": "The most fatiguing lifts in the program. Top set at RPE 7u20138 (2u20133 reps in reserve), every rep moving with intent. NEVER pull 100% weekly — alternate a heavy week (top set RPE 8) with a moderate week (RPE 6u20137, crisp and fast). Test a true max only every 8u201312 weeks, fresh, early in the session."
+      },
+      {
+       "label": "TIER 1 — squat, bench, barbell hip thrust, bent-over row",
+       "text": "RIR 2u20133 most weeks. Only the FINAL set goes to RIR 1, and only in the last week of a wave. Add load once all sets reach the top of the rep range. Grinding these costs days of recovery for no extra growth."
+      },
+      {
+       "label": "TIER 2 — DB presses, rows, pulldowns, leg press, lunges, split squats",
+       "text": "RIR 1u20132. Your main growth drivers at lower joint cost — push hard, but the set ends when form changes, not when you collapse."
+      },
+      {
+       "label": "ISOLATION — raises, curls, pushdowns, flyes, face pulls, leg curls, glute finishers",
+       "text": "Safe to push to RIR 0u20131; occasional true failure is fine here. Chase the squeeze and the pump. If form breaks, drop the weight ~20% and keep going rather than cheat."
+      },
+      {
+       "label": "CORE & CARRIES",
+       "text": "Quality over load, RIR 2+. The set ends the moment position degrades — a sagging plank trains nothing good."
+      },
+      {
+       "label": "The 4-week wave",
+       "text": "Wk1: everything at RIR 3 (feels easy — thatu2019s correct). Wk2: RIR 2. Wk3: RIR 1u20132, isolation may touch 0 — the heaviest week. Wk4: start the next wave slightly heavier; every second wave, make Wk4 a deload (u221240u201350% sets, u221210u201315% load)."
+      },
+      {
+       "label": "Autoregulate",
+       "text": "Slept badly, stressed, or run-down? Keep the session, drop all loads 5u201310%. Showing up at 90% beats skipping — or grinding at 100%."
+      }
+     ],
+     "accent": ""
+    },
+    {
+     "title": "Sources",
+     "intro": "Sources: Schoenfeld et al. (2016) · Izquierdo et al. (2024) ICFSR consensus · ACSM resistance-training position stand · Cell Metabolism (2024) Zone 2 + resistance training.",
+     "items": [],
+     "accent": ""
+    }
+   ]
+  }
+ ]
+}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
+import guideData from "@/data/guide-data.json";
 
 type Exercise = [string, string, string, string, string]; // name, sets, reps, rest, cue
 type Day = { name: string; type: string; exercises: Exercise[] };
@@ -24,6 +25,9 @@ type Entry = {
   };
 };
 type SummaryRow = { entry_date: string; logged_by: string; n: number };
+type GuideItem = { label: string; text: string; who?: string };
+type GuideSection = { title: string; intro: string; items: GuideItem[]; accent: string };
+type GuideTabData = { id: string; title: string; sections: GuideSection[] };
 type FormRow = { weight: string; sets: string; reps: string; rir: string; notes: string };
 
 const LIME = "#DBFF4A";
@@ -68,7 +72,8 @@ function niceDate(isoStr: string): string {
 }
 
 export default function Home() {
-  const [tab, setTab] = useState<"workout" | "history" | "calendar">("workout");
+  const [tab, setTab] = useState<"workout" | "history" | "guide" | "calendar">("workout");
+  const [guideTab, setGuideTab] = useState("track");
   const [trainee, setTrainee] = useState<string>("male");
   const [programs, setPrograms] = useState<Program[]>([]);
   const [dayIdx, setDayIdx] = useState(0);
@@ -556,6 +561,98 @@ export default function Home() {
         </>
       )}
 
+      {/* ============ GUIDE TAB ============ */}
+      {tab === "guide" && (
+        <>
+          <h2 className="text-xl font-black uppercase italic tracking-tight">Guide</h2>
+          <p className="mb-4 mt-0.5 text-xs text-zinc-500">
+            {(guideData as { subtitle: string }).subtitle}
+          </p>
+
+          <div className="mb-5 flex rounded-full border border-zinc-800 bg-zinc-900 p-1">
+            {(guideData.tabs as GuideTabData[]).map((g) => (
+              <button
+                key={g.id}
+                onClick={() => setGuideTab(g.id)}
+                className="flex-1 rounded-full px-3 py-1.5 text-xs font-black uppercase tracking-wide transition"
+                style={
+                  guideTab === g.id
+                    ? { background: LIME, color: "#0a0a0a" }
+                    : { color: "#71717a" }
+                }
+              >
+                {g.title}
+              </button>
+            ))}
+          </div>
+
+          <div className="space-y-4">
+            {(guideData.tabs as GuideTabData[])
+              .find((g) => g.id === guideTab)
+              ?.sections.map((s, si) =>
+                s.title === "Sources" ? (
+                  <p key={si} className="text-[11px] leading-relaxed text-zinc-600">
+                    {s.intro}
+                  </p>
+                ) : (
+                  <section
+                    key={si}
+                    className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-4"
+                    style={
+                      s.accent === "pink"
+                        ? { borderColor: "rgba(219,255,74,.35)" }
+                        : undefined
+                    }
+                  >
+                    <h3
+                      className="text-sm font-extrabold uppercase tracking-tight"
+                      style={{ color: s.accent === "pink" ? LIME : "#f4f4f5" }}
+                    >
+                      {s.title}
+                    </h3>
+                    {s.intro && (
+                      <p className="mt-1.5 text-xs leading-relaxed text-zinc-400">{s.intro}</p>
+                    )}
+                    {s.items.length > 0 && (
+                      <div className="mt-3 space-y-3">
+                        {s.items.map((it, ii) => (
+                          <div
+                            key={ii}
+                            className="border-l-2 pl-3"
+                            style={{
+                              borderColor: it.who
+                                ? it.who === "female"
+                                  ? LIME
+                                  : CYAN
+                                : "#3f3f46",
+                            }}
+                          >
+                            <p
+                              className="text-xs font-bold"
+                              style={{
+                                color: it.who
+                                  ? it.who === "female"
+                                    ? LIME
+                                    : CYAN
+                                  : "#e4e4e7",
+                              }}
+                            >
+                              {it.label}
+                            </p>
+                            <p className="mt-0.5 text-xs leading-relaxed text-zinc-400">
+                              {it.text}
+                            </p>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </section>
+                )
+              )}
+          </div>
+        </>
+      )}
+
       {/* ============ CALENDAR TAB ============ */}
       {tab === "calendar" && (
         <>
@@ -701,6 +798,7 @@ export default function Home() {
             [
               ["workout", "Workout", "M6.5 6.5h11m-11 11h11M4 9v6m16-6v6M2 10.5v3m20-3v3M9 4v16m6-16v16"],
               ["history", "History", "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"],
+              ["guide", "Guide", "M12 6.25c-2-1.6-4.6-2-7-1.9v13.4c2.4-.1 5 .3 7 1.9 2-1.6 4.6-2 7-1.9V4.35c-2.4-.1-5 .3-7 1.9zm0 0v13.4"],
               ["calendar", "Calendar", "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"],
             ] as const
           ).map(([id, label, path]) => (
