@@ -1,0 +1,811 @@
+{
+  "schemaVersion": "1.0",
+  "meta": {
+    "title": "Longevity Trainer — Push/Pull",
+    "trainees": {
+      "male": "Chris",
+      "female": "Maryam"
+    },
+    "notes": "Single source of truth: program, seed weights, trainee names. Edit this, then run build_app.py to regenerate the HTML."
+  },
+  "programs": {
+    "male": {
+      "title": "Male Program — Push / Pull (4 Days)",
+      "note": "Male, 30s, average experience. Push = chest/shoulders/triceps + quads. Pull = back/biceps + posterior chain. Compound-first, joint-friendly. ~55–65 min/session.",
+      "days": [
+        {
+          "name": "Push A — Chest + Quads",
+          "type": "push",
+          "exercises": [
+            [
+              "Barbell Back Squat",
+              "3",
+              "6–8",
+              "2–3 min",
+              "Primary quad compound. Full depth to parallel+. Brace core. Placed first when freshest."
+            ],
+            [
+              "Barbell Bench Press",
+              "3",
+              "6–8",
+              "2–3 min",
+              "SHOULDER-FRIENDLY: elbows ~45° from torso (never flared 90°), retract scapulae, 3-sec eccentric. Stop short of pinching."
+            ],
+            [
+              "DB Incline Press (30°)",
+              "3",
+              "8–12",
+              "90 sec",
+              "Moderate incline (30°, not 45°+) reduces impingement. DBs allow natural wrist rotation."
+            ],
+            [
+              "Walking Lunges (DB)",
+              "3",
+              "10/leg",
+              "90 sec",
+              "Single-leg balance & quad strength. Addresses L/R imbalances."
+            ],
+            [
+              "Lateral Raise (DB/Cable)",
+              "3",
+              "12–15",
+              "60 sec",
+              "Slight forward lean + thumbs up — protects supraspinatus. Light, strict."
+            ],
+            [
+              "Overhead Tricep Ext (Rope)",
+              "2",
+              "10–12",
+              "60 sec",
+              "Rope = shoulder-friendly wrist. Keep elbows stable."
+            ],
+            [
+              "Pallof Press (Cable)",
+              "2",
+              "10/side",
+              "60 sec",
+              "Anti-rotation core. Protects spine under load."
+            ]
+          ]
+        },
+        {
+          "name": "Pull A — Back Thickness + Posterior Chain",
+          "type": "pull",
+          "exercises": [
+            [
+              "Trap Bar Deadlift",
+              "3",
+              "5–6",
+              "3 min",
+              "Trap bar reduces spinal shear — great for longevity. Brace hard."
+            ],
+            [
+              "Chest-Supported Row",
+              "3",
+              "8–10",
+              "90 sec",
+              "No low-back stress after deadlifts. Squeeze 1 sec at top."
+            ],
+            [
+              "Lat Pulldown / Pull-Ups",
+              "3",
+              "8–10",
+              "90 sec",
+              "SHOULDER-FRIENDLY: pull to upper chest, never behind neck. Full stretch up top."
+            ],
+            [
+              "Leg Curl (Seated/Lying)",
+              "3",
+              "10–12",
+              "60 sec",
+              "Hamstring isolation. Slow 3-sec eccentric. Knee health."
+            ],
+            [
+              "Cable Face Pull",
+              "3",
+              "12–15",
+              "60 sec",
+              "Rotator cuff & rear delt. External-rotate at top. Non-negotiable."
+            ],
+            [
+              "Incline DB Curl",
+              "2",
+              "10–12",
+              "60 sec",
+              "Full stretch at bottom. Supinate through the curl."
+            ],
+            [
+              "Dead Bug",
+              "2",
+              "8/side",
+              "60 sec",
+              "Core stability prehab. Low back pressed to floor."
+            ]
+          ]
+        },
+        {
+          "name": "Push B — Shoulders + Quads",
+          "type": "push",
+          "exercises": [
+            [
+              "Leg Press (Moderate Foot)",
+              "3",
+              "10–12",
+              "2 min",
+              "Quad emphasis. Spares spine from a 2nd squat day. Controlled tempo."
+            ],
+            [
+              "DB Overhead Press (Seated, Neutral)",
+              "3",
+              "6–8",
+              "2 min",
+              "SHOULDER-FRIENDLY: seated + neutral grip reduces impingement. Stop if pinching."
+            ],
+            [
+              "DB Chest Fly (Flat/Sl. Incline)",
+              "3",
+              "10–12",
+              "60 sec",
+              "Elbows soft, don't drop below shoulder — protects capsule. Stretch-focused."
+            ],
+            [
+              "Bulgarian Split Squat (DB)",
+              "3",
+              "8–10/leg",
+              "90 sec",
+              "Single-leg king. Hip stability & quad/glute activation."
+            ],
+            [
+              "Lateral Raise (Cable)",
+              "3",
+              "12–15",
+              "60 sec",
+              "Constant tension. Lead with elbow, slight forward lean."
+            ],
+            [
+              "Tricep Pushdown (Rope)",
+              "2",
+              "10–12",
+              "60 sec",
+              "Rope = neutral wrist. Spread at bottom for lateral head."
+            ],
+            [
+              "Ab Wheel Rollout / Plank",
+              "2",
+              "8–10",
+              "60 sec",
+              "Anti-extension core. Protect low back."
+            ]
+          ]
+        },
+        {
+          "name": "Pull B — Back Width + Posterior Chain",
+          "type": "pull",
+          "exercises": [
+            [
+              "Romanian Deadlift",
+              "3",
+              "8–10",
+              "2 min",
+              "Hip hinge for hams & glutes. Slight knee bend, feel the stretch."
+            ],
+            [
+              "Cable Row (Neutral Grip)",
+              "3",
+              "10–12",
+              "90 sec",
+              "Neutral grip spares bicep tendon. Retract & depress scapulae."
+            ],
+            [
+              "Hip Thrust",
+              "3",
+              "10–12",
+              "90 sec",
+              "Glute focus. Full hip extension, 1-sec squeeze at top."
+            ],
+            [
+              "Reverse Fly / Band Pull-Apart",
+              "3",
+              "15–20",
+              "60 sec",
+              "High-rep posterior prehab. Essential for desk workers."
+            ],
+            [
+              "Seated Calf Raise",
+              "3",
+              "12–15",
+              "60 sec",
+              "Full stretch, 2-sec pause at top. Bone-density loading."
+            ],
+            [
+              "Hammer Curl (DB)",
+              "2",
+              "10–12",
+              "60 sec",
+              "Brachialis & forearm for balanced arms."
+            ],
+            [
+              "Side Plank / Suitcase Carry",
+              "2",
+              "20–30s/side",
+              "60 sec",
+              "Lateral core stability. Prevents compensation."
+            ]
+          ]
+        }
+      ],
+      "volume": [
+        [
+          "Chest",
+          "~9 sets/wk"
+        ],
+        [
+          "Back",
+          "~9 sets/wk"
+        ],
+        [
+          "Shoulders",
+          "6 + face pulls"
+        ],
+        [
+          "Quads",
+          "~9 sets/wk"
+        ],
+        [
+          "Hamstrings",
+          "~6 sets/wk"
+        ],
+        [
+          "Glutes",
+          "6–9 sets/wk"
+        ],
+        [
+          "Arms",
+          "~4 sets/wk"
+        ],
+        [
+          "Core",
+          "~4 sets/wk"
+        ]
+      ]
+    },
+    "female": {
+      "title": "Female Program — Push / Pull — Back & Glute Focus",
+      "note": "Female, 30s. Aligned with the male split (same days). Pull days are heavier on back + dedicated glute work; push days stay glute-biased. Glutes hit every session. ~60–70 min/session.",
+      "days": [
+        {
+          "name": "Push A — Chest + Quads/Glutes",
+          "type": "push",
+          "exercises": [
+            [
+              "Barbell Back Squat (Deep)",
+              "3",
+              "6–8",
+              "2–3 min",
+              "GLUTE PRIORITY: go deep — glute activation jumps below parallel. 1-sec pause at bottom."
+            ],
+            [
+              "DB Bench Press (Flat)",
+              "3",
+              "8–10",
+              "90 sec",
+              "Natural wrist rotation. SHOULDER-FRIENDLY: elbows ~45°. Stop before discomfort."
+            ],
+            [
+              "Walking Lunges (Long Stride)",
+              "3",
+              "10/leg",
+              "90 sec",
+              "LONG stride = glute emphasis. Lean torso slightly forward."
+            ],
+            [
+              "DB Incline Press (30°)",
+              "3",
+              "8–12",
+              "90 sec",
+              "Upper chest. Moderate incline protects shoulder."
+            ],
+            [
+              "Lateral Raise (DB/Cable)",
+              "3",
+              "12–15",
+              "60 sec",
+              "Forward lean + thumbs up. Light, strict."
+            ],
+            [
+              "Cable Kickback / Glute Bridge",
+              "3",
+              "12–15/leg",
+              "60 sec",
+              "GLUTE FINISHER. Squeeze hard at peak contraction."
+            ],
+            [
+              "Overhead Tricep Ext (Rope)",
+              "2",
+              "10–12",
+              "60 sec",
+              "Rope = shoulder-friendly. Elbows stable."
+            ]
+          ]
+        },
+        {
+          "name": "Pull A — Back Thickness + Glutes ★",
+          "type": "pull",
+          "exercises": [
+            [
+              "Conventional Deadlift",
+              "3",
+              "5–6",
+              "3 min",
+              "Full compound — erectors, lats, traps, glutes, hams. Squeeze glutes at lockout."
+            ],
+            [
+              "Barbell Hip Thrust",
+              "4",
+              "8–10",
+              "2 min",
+              "PRIMARY GLUTE BUILDER. Heavy. Full lockout, 2-sec squeeze. Pad the bar."
+            ],
+            [
+              "Barbell Bent-Over Row",
+              "3",
+              "6–8",
+              "2 min",
+              "PRIMARY BACK BUILDER. Overhand = mid-traps/rhomboids. Pull to lower chest."
+            ],
+            [
+              "Chest-Supported T-Bar Row",
+              "3",
+              "8–10",
+              "90 sec",
+              "Zero low-back stress. Squeeze hard. Shoulder-friendly."
+            ],
+            [
+              "Lying Leg Curl",
+              "3",
+              "10–12",
+              "60 sec",
+              "Hamstring isolation — ACL-protective. Slow 3-sec eccentric."
+            ],
+            [
+              "Cable Face Pull",
+              "3",
+              "12–15",
+              "60 sec",
+              "Rear delt & cuff — DIRECT shoulder prehab. Non-negotiable."
+            ],
+            [
+              "Straight-Arm Pulldown",
+              "2",
+              "12–15",
+              "60 sec",
+              "Lat isolation — V-taper. Arms straight, squeeze at bottom."
+            ]
+          ]
+        },
+        {
+          "name": "Push B — Shoulders + Glute-Biased Legs",
+          "type": "push",
+          "exercises": [
+            [
+              "Leg Press (High & Wide Foot)",
+              "3",
+              "10–12",
+              "2 min",
+              "GLUTE FOCUS: high+wide feet shift load to glutes/hams. Push through heels."
+            ],
+            [
+              "DB Shoulder Press (Seated, Neutral)",
+              "3",
+              "8–10",
+              "90 sec",
+              "SHOULDER-FRIENDLY: neutral grip, seated. Stop before pinching."
+            ],
+            [
+              "Bulgarian Split Squat (Glute)",
+              "3",
+              "8–10/leg",
+              "90 sec",
+              "Long stance, lean forward — glute-dominant + hip stability."
+            ],
+            [
+              "DB Chest Fly (Slight Incline)",
+              "3",
+              "10–12",
+              "60 sec",
+              "Elbows soft, don't drop below shoulder. Stretch-focused."
+            ],
+            [
+              "Lateral Raise (Cable)",
+              "3",
+              "12–15",
+              "60 sec",
+              "Constant tension. Lead with elbow, slight lean."
+            ],
+            [
+              "Sumo Squat (DB/Goblet)",
+              "3",
+              "12–15",
+              "60 sec",
+              "GLUTE/ADDUCTOR FINISHER. Wide stance, toes 45°. Squeeze at top."
+            ],
+            [
+              "Tricep Pushdown (Rope)",
+              "2",
+              "10–12",
+              "60 sec",
+              "Rope = neutral wrist. Spread at bottom."
+            ]
+          ]
+        },
+        {
+          "name": "Pull B — Back Width + Glutes ★",
+          "type": "pull",
+          "exercises": [
+            [
+              "Romanian Deadlift (Barbell)",
+              "3",
+              "8–10",
+              "2 min",
+              "GLUTE + HAMSTRING stretch loading. Squeeze glutes to drive hips forward."
+            ],
+            [
+              "Single-Leg Hip Thrust",
+              "3",
+              "10–12/leg",
+              "60 sec",
+              "UNILATERAL GLUTE. Addresses L/R imbalance. Full lockout."
+            ],
+            [
+              "Lat Pulldown (Wide) / Pull-Up",
+              "3",
+              "8–10",
+              "90 sec",
+              "WIDTH BUILDER. Wide grip. Pull to upper chest, never behind neck."
+            ],
+            [
+              "Close-Grip Pulldown (Neutral)",
+              "3",
+              "8–10",
+              "90 sec",
+              "Neutral grip — shoulder-friendly. Lower-lat emphasis."
+            ],
+            [
+              "Single-Arm DB Row",
+              "3",
+              "8–10/arm",
+              "60 sec",
+              "Unilateral. Opposite hand supports. Free shoulder moves naturally."
+            ],
+            [
+              "Cable Pull-Through",
+              "3",
+              "12–15",
+              "60 sec",
+              "GLUTE FINISHER. Hip hinge — squeeze at full extension. Low joint impact."
+            ],
+            [
+              "Reverse Fly (DB/Cable)",
+              "2",
+              "12–15",
+              "60 sec",
+              "Rear delt — DIRECT shoulder prehab. Slow eccentrics."
+            ],
+            [
+              "Hammer Curl (DB)",
+              "2",
+              "10–12",
+              "60 sec",
+              "Brachialis & forearm. Neutral grip is shoulder-friendly."
+            ]
+          ]
+        }
+      ],
+      "volume": [
+        [
+          "Back (total)",
+          "~28 sets/wk ★"
+        ],
+        [
+          "Glutes (total)",
+          "~22 sets/wk ★"
+        ],
+        [
+          "Lats",
+          "~12 sets/wk"
+        ],
+        [
+          "Mid-back/Traps",
+          "~9 sets/wk"
+        ],
+        [
+          "Rear Delts",
+          "~10 sets/wk"
+        ],
+        [
+          "Chest",
+          "~9 sets/wk"
+        ],
+        [
+          "Shoulders",
+          "~9 sets/wk"
+        ],
+        [
+          "Quads",
+          "~9 sets/wk"
+        ],
+        [
+          "Hamstrings",
+          "~9 sets/wk"
+        ],
+        [
+          "Triceps",
+          "~4 sets/wk"
+        ],
+        [
+          "Biceps",
+          "~2 sets/wk"
+        ],
+        [
+          "Core",
+          "~4 sets/wk"
+        ]
+      ]
+    }
+  },
+  "schedule": [
+    [
+      "Mon",
+      "Push A",
+      "push"
+    ],
+    [
+      "Tue",
+      "Pull A",
+      "pull"
+    ],
+    [
+      "Wed",
+      "Rest",
+      ""
+    ],
+    [
+      "Thu",
+      "Push B",
+      "push"
+    ],
+    [
+      "Fri",
+      "Pull B",
+      "pull"
+    ],
+    [
+      "Sat",
+      "Z2 Cardio",
+      ""
+    ],
+    [
+      "Sun",
+      "Rest",
+      ""
+    ]
+  ],
+  "seed": [
+    {
+      "program": "male",
+      "exercise": "Barbell Back Squat",
+      "weight": "120",
+      "notes": "Working 120 kg · top set 140 kg"
+    },
+    {
+      "program": "male",
+      "exercise": "Barbell Bench Press",
+      "weight": "100",
+      "notes": "Working 100 kg · top set 105 kg"
+    },
+    {
+      "program": "male",
+      "exercise": "DB Incline Press (30°)",
+      "weight": "30",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "male",
+      "exercise": "Trap Bar Deadlift",
+      "weight": "160",
+      "notes": "Logged as your deadlift"
+    },
+    {
+      "program": "male",
+      "exercise": "Chest-Supported Row",
+      "weight": "50",
+      "notes": "Your barbell bent-over row (male plan uses a chest-supported row)"
+    },
+    {
+      "program": "male",
+      "exercise": "Leg Press (Moderate Foot)",
+      "weight": "210",
+      "notes": "Working 210 kg · top set 220 kg"
+    },
+    {
+      "program": "male",
+      "exercise": "DB Overhead Press (Seated, Neutral)",
+      "weight": "25",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "male",
+      "exercise": "DB Chest Fly (Flat/Sl. Incline)",
+      "weight": "20",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "male",
+      "exercise": "Bulgarian Split Squat (DB)",
+      "weight": "20",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "male",
+      "exercise": "Lateral Raise (DB/Cable)",
+      "weight": "16",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "male",
+      "exercise": "Lateral Raise (Cable)",
+      "weight": "16",
+      "notes": "Same as Push A lateral raise"
+    },
+    {
+      "program": "male",
+      "exercise": "Tricep Pushdown (Rope)",
+      "weight": "46",
+      "notes": "Rope 46 kg · 59 kg on the straight bar"
+    },
+    {
+      "program": "male",
+      "exercise": "Incline DB Curl",
+      "weight": "14",
+      "notes": "Your DB curl (per dumbbell)"
+    },
+    {
+      "program": "male",
+      "exercise": "Leg Curl (Seated/Lying)",
+      "weight": "59",
+      "notes": ""
+    },
+    {
+      "program": "female",
+      "exercise": "Barbell Back Squat (Deep)",
+      "weight": "80",
+      "notes": "Working 80 kg · top set 100 kg"
+    },
+    {
+      "program": "female",
+      "exercise": "DB Bench Press (Flat)",
+      "weight": "30",
+      "notes": "Working 30 kg · top 45 kg — your barbell bench (female plan uses DB bench)"
+    },
+    {
+      "program": "female",
+      "exercise": "DB Incline Press (30°)",
+      "weight": "16",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "female",
+      "exercise": "Conventional Deadlift",
+      "weight": "100",
+      "notes": ""
+    },
+    {
+      "program": "female",
+      "exercise": "Barbell Bent-Over Row",
+      "weight": "30",
+      "notes": ""
+    },
+    {
+      "program": "female",
+      "exercise": "Leg Press (High & Wide Foot)",
+      "weight": "180",
+      "notes": "Working 180 kg · top set 220 kg"
+    },
+    {
+      "program": "female",
+      "exercise": "DB Shoulder Press (Seated, Neutral)",
+      "weight": "12",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "female",
+      "exercise": "DB Chest Fly (Slight Incline)",
+      "weight": "10",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "female",
+      "exercise": "Bulgarian Split Squat (Glute)",
+      "weight": "14",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "female",
+      "exercise": "Lateral Raise (DB/Cable)",
+      "weight": "11",
+      "notes": "Per dumbbell"
+    },
+    {
+      "program": "female",
+      "exercise": "Lateral Raise (Cable)",
+      "weight": "11",
+      "notes": "Same as Push A lateral raise"
+    },
+    {
+      "program": "female",
+      "exercise": "Tricep Pushdown (Rope)",
+      "weight": "25",
+      "notes": ""
+    },
+    {
+      "program": "female",
+      "exercise": "Lying Leg Curl",
+      "weight": "50",
+      "notes": ""
+    }
+  ],
+  "intensityTiers": {
+    "_comment": "Single source of truth for per-lift intensity. Order matters: first match wins. 'pattern' and 'exclude' are case-insensitive regexes tested against the lowercased exercise name.",
+    "rules": [
+      {
+        "pattern": "single-leg hip thrust",
+        "tier": "TIER 2",
+        "color": "#22d3ee",
+        "note": "RIR 1–2. Push hard — the set ends when form changes, not when you collapse.",
+        "action": "Add small load when you clear the top of the range at RIR 1-2."
+      },
+      {
+        "pattern": "deadlift",
+        "exclude": "romanian",
+        "tier": "CNS-HEAVY",
+        "color": "#f87171",
+        "note": "Never 100% weekly. Top set RPE 7–8 (2–3 RIR), bar moving with intent. Alternate heavy and moderate weeks; test a true max only every 8–12 weeks, fresh.",
+        "action": "Alternate heavy/moderate weeks. NEVER max weekly. If last week was heavy (RPE8), make this week RPE6-7 and faster, even at the same load."
+      },
+      {
+        "pattern": "romanian",
+        "tier": "HINGE ACCESSORY",
+        "color": "#fb923c",
+        "note": "A load you fully control for the 3-sec eccentric, RIR 2–3. Grinding RDLs wrecks recovery and form.",
+        "action": "Progress slowly; keep the 3-sec eccentric controllable. Form before load."
+      },
+      {
+        "pattern": "pallof|dead bug|ab wheel|plank|carry",
+        "tier": "CORE",
+        "color": "#a78bfa",
+        "note": "Quality over load, RIR 2+. The set ends the moment position degrades.",
+        "action": "Progress reps/time, not load. Stop when position degrades."
+      },
+      {
+        "pattern": "back squat|bench press|hip thrust|bent-over row",
+        "tier": "TIER 1",
+        "color": "#f59e0b",
+        "note": "RIR 2–3 most weeks; only the final set to RIR 1, and only in the last week of a wave. Add load once all sets hit the top of the range.",
+        "action": "Add load only when ALL sets hit the top of the rep range at RIR 2-3. Otherwise repeat and add reps."
+      },
+      {
+        "pattern": "raise|curl|pushdown|fly|face pull|straight-arm|kickback|glute bridge|calf|pull-through|pull-apart|tricep",
+        "tier": "ISOLATION",
+        "color": "#34d399",
+        "note": "Safe to push to RIR 0–1. Chase the squeeze; if form breaks, drop the weight 20% rather than cheat.",
+        "action": "Add reps first, then a small load bump. Failure on the last set is fine here."
+      }
+    ],
+    "default": {
+      "tier": "TIER 2",
+      "color": "#22d3ee",
+      "note": "RIR 1–2. Main growth drivers at lower joint cost — push hard, stop before form breaks.",
+      "action": "Add small load when you clear the top of the range at RIR 1-2."
+    }
+  }
+}
