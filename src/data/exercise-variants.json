@@ -1,0 +1,302 @@
+{
+  "Barbell Back Squat": { "variants": [
+    { "name": "Barbell Back Squat", "equipment": "Barbell", "setup": "Set the bar in the rack at upper-chest height, safeties just below your bottom position. Bar on upper traps, feet shoulder-width, toes slightly out." },
+    { "name": "Smith Machine Squat", "equipment": "Smith", "setup": "Set the bar at upper-chest height. Place feet slightly in front of the bar so your shins stay vertical at the bottom. Unhook and control the descent." },
+    { "name": "Goblet Squat (DB)", "equipment": "Dumbbell", "setup": "Hold one dumbbell vertically against your chest, elbows tucked. Feet shoulder-width — sit between your heels, chest tall." },
+    { "name": "Hack Squat (Machine)", "equipment": "Machine", "setup": "Back flat on the pad, feet mid-platform shoulder-width. Release the handles and lower under control to just below parallel." }
+  ]},
+  "Barbell Back Squat (Deep)": { "variants": [
+    { "name": "Barbell Back Squat (Deep)", "equipment": "Barbell", "setup": "Rack the bar at upper-chest height, safeties low. Slightly wider stance, toes out — sink below parallel with a 1-sec pause for glute activation." },
+    { "name": "Smith Machine Squat (Deep)", "equipment": "Smith", "setup": "Feet slightly forward of the bar, wider than shoulder-width. Go below parallel with a controlled pause — the fixed path keeps balance easy." },
+    { "name": "Goblet Squat (Deep)", "equipment": "Dumbbell", "setup": "Hold one heavy dumbbell at your chest. Sink as deep as mobility allows, elbows inside knees, 1-sec pause at the bottom." },
+    { "name": "Leg Press (Deep, Wide)", "equipment": "Machine", "setup": "Feet high and wide on the platform. Lower deep toward your chest without your hips rolling off the pad." }
+  ]},
+  "Barbell Bench Press": { "variants": [
+    { "name": "Barbell Bench Press", "equipment": "Barbell", "setup": "Lie with eyes under the bar, feet planted. Retract shoulder blades, grip just outside shoulders, elbows ~45° on the way down." },
+    { "name": "DB Bench Press", "equipment": "Dumbbell", "setup": "Sit with dumbbells on knees, kick back one at a time as you lie down. Press with a natural slight wrist rotation, elbows ~45°." },
+    { "name": "Smith Machine Bench Press", "equipment": "Smith", "setup": "Position the bench so the bar touches mid-chest. Same 45° elbow path — the fixed track spares stabilisers on heavy days." },
+    { "name": "Machine Chest Press", "equipment": "Machine", "setup": "Set the seat so handles sit at mid-chest height. Shoulder blades pinned back into the pad throughout." }
+  ]},
+  "DB Bench Press (Flat)": { "variants": [
+    { "name": "DB Bench Press (Flat)", "equipment": "Dumbbell", "setup": "Kick the dumbbells back one at a time as you lie down. Elbows ~45°, natural wrist rotation, stop just short of any shoulder pinch." },
+    { "name": "Barbell Bench Press", "equipment": "Barbell", "setup": "Eyes under the bar, shoulder blades retracted, grip just outside shoulders. Elbows ~45° — never flared to 90°." },
+    { "name": "Machine Chest Press", "equipment": "Machine", "setup": "Handles at mid-chest height, shoulder blades pinned into the pad. Shoulder-friendly fixed path." },
+    { "name": "Push-Up (Weighted)", "equipment": "Bodyweight", "setup": "Hands just outside shoulders, body in one line. Add a plate on your back or elevate feet to load it." }
+  ]},
+  "DB Incline Press (30°)": { "variants": [
+    { "name": "DB Incline Press (30°)", "equipment": "Dumbbell", "setup": "Set the bench to ~30° (one or two notches up — not 45°+). Press up and slightly back, elbows ~45° from your torso." },
+    { "name": "Barbell Incline Press (30°)", "equipment": "Barbell", "setup": "Low-incline bench in the rack, bar touches just below the collarbone. Moderate grip, elbows ~45°." },
+    { "name": "Smith Incline Press", "equipment": "Smith", "setup": "Slide a 30° bench under the bar so it meets your upper chest. Fixed path — good when pressing feels unstable." },
+    { "name": "Incline Machine Press", "equipment": "Machine", "setup": "Set seat height so handles start at upper-chest level. Drive up without shrugging." }
+  ]},
+  "Walking Lunges (DB)": { "variants": [
+    { "name": "Walking Lunges (DB)", "equipment": "Dumbbell", "setup": "Dumbbell in each hand at your sides. Step forward into a lunge, knee tracking over toes, push through the front heel to step through." },
+    { "name": "Walking Lunges (Bodyweight)", "equipment": "Bodyweight", "setup": "Hands on hips or clasped at chest. Same stride — use when dumbbells are taken or as a warm-up progression." },
+    { "name": "Smith Machine Split Squat", "equipment": "Smith", "setup": "Bar on upper traps, one foot forward one back, lower straight down. Swap legs each set — no walking space needed." },
+    { "name": "Stationary Lunges (Barbell)", "equipment": "Barbell", "setup": "Bar on your back in the rack area. Lunge in place, alternating legs — safer than walking with a barbell." }
+  ]},
+  "Walking Lunges (Long Stride)": { "variants": [
+    { "name": "Walking Lunges (Long Stride)", "equipment": "Dumbbell", "setup": "Dumbbells at your sides, take a LONGER than comfortable stride and lean the torso slightly forward — this biases the glutes over the quads." },
+    { "name": "Reverse Lunges (Long Stride)", "equipment": "Dumbbell", "setup": "Step backward into a long lunge, torso leaning slightly forward. Same glute bias, easier on the knees, no walking space needed." },
+    { "name": "Smith Split Squat (Front Foot Forward)", "equipment": "Smith", "setup": "Front foot placed well forward of the bar, slight forward torso lean. Fixed path lets you focus purely on the glute stretch." },
+    { "name": "Walking Lunges (Bodyweight)", "equipment": "Bodyweight", "setup": "Long stride, hands at chest. Use for higher reps when dumbbells aren't free." }
+  ]},
+  "Lateral Raise (DB/Cable)": { "variants": [
+    { "name": "Lateral Raise (DB)", "equipment": "Dumbbell", "setup": "Light dumbbells at your sides, slight forward lean, thumbs up a touch. Raise to shoulder height leading with the elbows." },
+    { "name": "Lateral Raise (Cable)", "equipment": "Cable", "setup": "Set the pulley at its lowest, stand side-on, handle in the far hand crossing your body. Constant tension through the whole arc." },
+    { "name": "Lateral Raise (Machine)", "equipment": "Machine", "setup": "Adjust the seat so shoulder joints line up with the machine's pivot. Pads just above the elbows, raise to parallel." },
+    { "name": "Lateral Raise (Band)", "equipment": "Bands", "setup": "Stand on the band, handle or loop in each hand. Raise to shoulder height — tension peaks at the top." }
+  ]},
+  "Lateral Raise (Cable)": { "variants": [
+    { "name": "Lateral Raise (Cable)", "equipment": "Cable", "setup": "Lowest pulley, stand side-on, far hand grabs the handle across your body. Lead with the elbow, slight forward lean." },
+    { "name": "Lateral Raise (DB)", "equipment": "Dumbbell", "setup": "Light dumbbells, strict form, raise to shoulder height with thumbs slightly up. Same movement when cables are taken." },
+    { "name": "Lateral Raise (Machine)", "equipment": "Machine", "setup": "Line your shoulders up with the pivot point, pads above the elbows. Smooth constant resistance." },
+    { "name": "Lateral Raise (Band)", "equipment": "Bands", "setup": "Stand on the middle of the band. Raise both arms to shoulder height, controlling the way down." }
+  ]},
+  "Overhead Tricep Ext (Rope)": { "variants": [
+    { "name": "Overhead Tricep Ext (Rope)", "equipment": "Cable", "setup": "Rope on a low or mid pulley, face away, hands behind your head. Extend up and slightly forward, elbows fixed by your ears." },
+    { "name": "Overhead Tricep Ext (DB)", "equipment": "Dumbbell", "setup": "Hold one dumbbell with both hands cupping the top plate. Lower behind your head, elbows pointing up, extend without flaring." },
+    { "name": "Overhead Tricep Ext (Band)", "equipment": "Bands", "setup": "Anchor the band low behind you, press overhead. Elbows stay tucked by your ears the whole set." },
+    { "name": "Skull Crushers (EZ Bar)", "equipment": "Barbell", "setup": "Lie on a bench, EZ bar over your forehead. Lower to just behind the crown of the head, elbows fixed, press back up." }
+  ]},
+  "Pallof Press (Cable)": { "variants": [
+    { "name": "Pallof Press (Cable)", "equipment": "Cable", "setup": "Handle at chest height, stand side-on to the stack, feet shoulder-width. Press straight out and resist the pull to rotate. Switch sides." },
+    { "name": "Pallof Press (Band)", "equipment": "Bands", "setup": "Loop a band around an upright at chest height. Step out for tension, press straight out, resist rotation." },
+    { "name": "Dead Bug", "equipment": "Bodyweight", "setup": "On your back, arms and knees up. Lower opposite arm and leg while pressing your low back into the floor. Anti-rotation substitute." },
+    { "name": "Plank with Reach", "equipment": "Bodyweight", "setup": "From a forearm plank, reach one arm forward without letting the hips rotate. Alternate sides slowly." }
+  ]},
+  "Trap Bar Deadlift": { "variants": [
+    { "name": "Trap Bar Deadlift", "equipment": "Trap Bar", "setup": "Stand centred inside the bar, handles at your sides. Brace hard, push the floor away — the neutral grip and centred load spare the spine." },
+    { "name": "Conventional Deadlift", "equipment": "Barbell", "setup": "Bar over mid-foot, grip just outside legs, hips higher than knees. Brace, drag the bar up your shins, squeeze glutes at lockout." },
+    { "name": "Rack Pull (Knee Height)", "equipment": "Barbell", "setup": "Set the bar on rack pins just below the knee. Shorter range, same hinge — good when pulling from the floor aggravates the back." },
+    { "name": "DB Deadlift", "equipment": "Dumbbell", "setup": "Heavy dumbbells at your sides, hinge and drive up. Use when the trap bar and platform are taken." }
+  ]},
+  "Conventional Deadlift": { "variants": [
+    { "name": "Conventional Deadlift", "equipment": "Barbell", "setup": "Bar over mid-foot, hands just outside legs, shoulders over the bar. Big brace, push the floor away, squeeze glutes hard at lockout." },
+    { "name": "Trap Bar Deadlift", "equipment": "Trap Bar", "setup": "Stand centred in the bar with neutral handles. Same full-body pull with less spinal shear — good swap on heavy weeks." },
+    { "name": "Rack Pull (Knee Height)", "equipment": "Barbell", "setup": "Pins just below the knee, same setup as a deadlift. Reduced range for when the low back needs a break." },
+    { "name": "Sumo Deadlift", "equipment": "Barbell", "setup": "Wide stance, toes out, hands inside the knees. More upright torso — shifts work toward glutes and adductors." }
+  ]},
+  "Chest-Supported Row": { "variants": [
+    { "name": "Chest-Supported Row", "equipment": "Machine", "setup": "Set the chest pad so arms hang fully at the start. Pull to your lower ribs, squeeze 1 sec at the top — zero low-back stress." },
+    { "name": "Chest-Supported DB Row", "equipment": "Dumbbell", "setup": "Lie face-down on a 30–45° incline bench, dumbbell in each hand. Row to your hips, squeeze the shoulder blades." },
+    { "name": "Seal Row (Barbell)", "equipment": "Barbell", "setup": "Lie prone on an elevated flat bench, bar hanging below. Row to touch the bench underside — strict and back-friendly." },
+    { "name": "Cable Row (Chest Braced)", "equipment": "Cable", "setup": "Seated cable row with your chest against a pad or strict upright torso. Neutral grip, pull to the sternum." }
+  ]},
+  "Chest-Supported T-Bar Row": { "variants": [
+    { "name": "Chest-Supported T-Bar Row", "equipment": "Machine", "setup": "Chest on the pad, feet planted on the rests. Pull the handles to your ribs and squeeze hard — the pad removes all low-back stress." },
+    { "name": "Chest-Supported DB Row", "equipment": "Dumbbell", "setup": "Face-down on an incline bench, row both dumbbells to your hips. Same pattern when the T-bar is taken." },
+    { "name": "Machine Row (High Chest Pad)", "equipment": "Machine", "setup": "Any plate-loaded row with a chest pad. Set the pad so you get a full stretch at the start of each rep." },
+    { "name": "Seal Row (Barbell)", "equipment": "Barbell", "setup": "Prone on an elevated bench, barbell hanging below, row to the bench. Strict, shoulder-friendly." }
+  ]},
+  "Lat Pulldown / Pull-Ups": { "variants": [
+    { "name": "Lat Pulldown", "equipment": "Cable", "setup": "Thighs snug under the pads, grip just outside shoulders. Pull to the upper chest — never behind the neck — full stretch up top." },
+    { "name": "Pull-Ups", "equipment": "Bodyweight", "setup": "Overhand grip just outside shoulders, full hang. Pull your chest to the bar; add a band under a knee if you need assistance." },
+    { "name": "Assisted Pull-Up (Machine)", "equipment": "Machine", "setup": "Kneel on the assist pad, set counterweight so you fail around the target reps. Same pull-to-upper-chest path." },
+    { "name": "Banded Pulldown (Kneeling)", "equipment": "Bands", "setup": "Anchor a heavy band overhead, kneel below it. Pull the band to your upper chest — travel-friendly fallback." }
+  ]},
+  "Lat Pulldown (Wide) / Pull-Up": { "variants": [
+    { "name": "Lat Pulldown (Wide)", "equipment": "Cable", "setup": "Wide grip on the long bar, thighs locked under the pads. Pull to the upper chest with a full stretch at the top — width builder." },
+    { "name": "Pull-Up (Wide)", "equipment": "Bodyweight", "setup": "Wide overhand grip, full hang to chest-at-bar. Add band assistance if needed to stay in the 8–10 range." },
+    { "name": "Assisted Pull-Up (Machine)", "equipment": "Machine", "setup": "Counterweight set so the last rep is hard. Wide grip, pull to the upper chest, slow negative." },
+    { "name": "Straight-Arm Pulldown (Heavy)", "equipment": "Cable", "setup": "High pulley, arms nearly straight, sweep the bar to your thighs. Lat-focused fallback when bars and machines are busy." }
+  ]},
+  "Close-Grip Pulldown (Neutral)": { "variants": [
+    { "name": "Close-Grip Pulldown (Neutral)", "equipment": "Cable", "setup": "V-handle on the pulldown cable, slight lean back. Pull to the sternum, elbows driving to your hips — lower-lat emphasis, shoulder-friendly." },
+    { "name": "Neutral-Grip Pull-Up", "equipment": "Bodyweight", "setup": "Parallel handles, full hang. Pull chest to hands; band assistance keeps you in the rep range." },
+    { "name": "Single-Arm Pulldown (Neutral)", "equipment": "Cable", "setup": "D-handle, half-kneel or sit side-on. Pull to your ribs one arm at a time for a bigger stretch." },
+    { "name": "Machine Pulldown (Neutral Handles)", "equipment": "Machine", "setup": "Use the neutral grips on the pulldown machine, chest tall, pull to sternum." }
+  ]},
+  "Leg Curl (Seated/Lying)": { "variants": [
+    { "name": "Leg Curl (Seated)", "equipment": "Machine", "setup": "Knees lined up with the pivot, pad above the heels, thigh lock down. Curl fully, 3-sec return — the seated version stretches hams hardest." },
+    { "name": "Leg Curl (Lying)", "equipment": "Machine", "setup": "Hips pressed down on the pad, pad above heels. Curl to full flexion, slow eccentric." },
+    { "name": "Nordic Curl (Assisted)", "equipment": "Bodyweight", "setup": "Anchor your ankles, lower your torso as slowly as possible, push back up with hands. Brutal — start assisted." },
+    { "name": "Swiss Ball Leg Curl", "equipment": "Bodyweight", "setup": "Heels on a swiss ball in a glute bridge. Curl the ball toward you, hips high the whole time." }
+  ]},
+  "Lying Leg Curl": { "variants": [
+    { "name": "Lying Leg Curl", "equipment": "Machine", "setup": "Hips pressed into the pad, roller just above the heels. Curl fully and take 3 seconds on the way down — ACL-protective hamstring work." },
+    { "name": "Seated Leg Curl", "equipment": "Machine", "setup": "Knees at the pivot, thigh pad locked. Bigger stretch position — a great one-for-one swap." },
+    { "name": "Swiss Ball Leg Curl", "equipment": "Bodyweight", "setup": "Bridge with heels on the ball, curl it in without dropping the hips. Use when machines are occupied." },
+    { "name": "Nordic Curl (Assisted)", "equipment": "Bodyweight", "setup": "Ankles anchored, control the fall with your hamstrings, press back up. Progress slowly." }
+  ]},
+  "Cable Face Pull": { "variants": [
+    { "name": "Cable Face Pull", "equipment": "Cable", "setup": "Rope at upper-chest height. Pull toward your face and externally rotate at the end — knuckles to the ceiling. Non-negotiable shoulder health work." },
+    { "name": "Band Face Pull", "equipment": "Bands", "setup": "Anchor a band at face height, pull to the bridge of your nose and rotate out. Perfect travel/home swap." },
+    { "name": "Reverse Pec-Deck", "equipment": "Machine", "setup": "Face the pad, handles at shoulder height, sweep arms back. Hits rear delts when cables are busy." },
+    { "name": "Bent-Over Rear Delt Fly (DB)", "equipment": "Dumbbell", "setup": "Hinge to near-parallel, light dumbbells, raise out to the sides with soft elbows." }
+  ]},
+  "Incline DB Curl": { "variants": [
+    { "name": "Incline DB Curl", "equipment": "Dumbbell", "setup": "Bench at ~45–60°, arms hanging fully back for the stretch. Curl and supinate, keep the shoulders pinned back." },
+    { "name": "Standing DB Curl", "equipment": "Dumbbell", "setup": "Curl with supination from your sides. Slightly less stretch — fine swap when the bench is taken." },
+    { "name": "Cable Curl (Behind-Body)", "equipment": "Cable", "setup": "Low pulley behind you, arm slightly back to mimic the incline stretch position." },
+    { "name": "Barbell Curl (EZ)", "equipment": "Barbell", "setup": "EZ bar, hands at the angled grips, elbows pinned to your sides. Strict — no swinging." }
+  ]},
+  "Dead Bug": { "variants": [
+    { "name": "Dead Bug", "equipment": "Bodyweight", "setup": "On your back, arms up, knees at 90°. Press the low back into the floor and lower opposite arm and leg. Slow and controlled." },
+    { "name": "Dead Bug (Band Anchored)", "equipment": "Bands", "setup": "Hold a band anchored behind your head under light tension while performing the dead bug — the anti-extension bias increases." },
+    { "name": "Bird Dog", "equipment": "Bodyweight", "setup": "On all fours, extend opposite arm and leg without the hips tipping. Pause 2 sec each rep." },
+    { "name": "Pallof Press (Cable)", "equipment": "Cable", "setup": "Chest-height handle, stand side-on, press out and resist rotation. Swap when you want standing core work." }
+  ]},
+  "Leg Press (Moderate Foot)": { "variants": [
+    { "name": "Leg Press (Moderate Foot)", "equipment": "Machine", "setup": "Feet mid-platform, shoulder-width. Lower under control until hips begin to tuck, drive through the whole foot — quad emphasis." },
+    { "name": "Hack Squat", "equipment": "Machine", "setup": "Back flat on the pad, feet mid-platform. Same quad emphasis with a fixed track." },
+    { "name": "Goblet Squat (DB)", "equipment": "Dumbbell", "setup": "Heavy dumbbell at the chest, controlled tempo squats — the fallback when machines are taken." },
+    { "name": "Smith Machine Squat", "equipment": "Smith", "setup": "Feet slightly forward, controlled depth. Spares the spine on a second squat-pattern day." }
+  ]},
+  "Leg Press (High & Wide Foot)": { "variants": [
+    { "name": "Leg Press (High & Wide Foot)", "equipment": "Machine", "setup": "Feet HIGH and WIDE on the platform, toes slightly out. Push through the heels — this shifts the load to glutes and hamstrings." },
+    { "name": "Sumo Squat (DB/Goblet)", "equipment": "Dumbbell", "setup": "Wide stance, toes out 45°, dumbbell hanging at arms' length. Sit straight down, squeeze glutes at the top." },
+    { "name": "Smith Squat (Wide, Feet Forward)", "equipment": "Smith", "setup": "Wide stance with feet forward of the bar — heel drive biases glutes, machine handles balance." },
+    { "name": "Belt Squat / Hack (Wide)", "equipment": "Machine", "setup": "Any squat machine with a high-wide foot position, pushing through the heels." }
+  ]},
+  "DB Overhead Press (Seated, Neutral)": { "variants": [
+    { "name": "DB Overhead Press (Seated, Neutral)", "equipment": "Dumbbell", "setup": "Bench upright, palms facing each other. Press up and slightly in — the neutral grip keeps the shoulders happy. Stop if anything pinches." },
+    { "name": "Machine Shoulder Press (Neutral)", "equipment": "Machine", "setup": "Seat set so handles start at ear height. Use the neutral grips, press without shrugging." },
+    { "name": "Landmine Press (Half-Kneeling)", "equipment": "Barbell", "setup": "Bar in a landmine or corner, half-kneel and press up-and-forward. The angle is very shoulder-friendly." },
+    { "name": "Band Overhead Press", "equipment": "Bands", "setup": "Stand on the band, press to lockout with neutral wrists. Light option for high-rep or travel days." }
+  ]},
+  "DB Shoulder Press (Seated, Neutral)": { "variants": [
+    { "name": "DB Shoulder Press (Seated, Neutral)", "equipment": "Dumbbell", "setup": "Upright bench, palms facing each other, forearms vertical. Press up without flaring — stop before any pinching." },
+    { "name": "Machine Shoulder Press (Neutral)", "equipment": "Machine", "setup": "Handles start at ear height, neutral grips, core braced against the pad." },
+    { "name": "Landmine Press (Half-Kneeling)", "equipment": "Barbell", "setup": "Half-kneeling, press the landmine up-and-forward. Great when overhead mobility is cranky." },
+    { "name": "Arnold Press (Light)", "equipment": "Dumbbell", "setup": "Start palms-in at the chest, rotate out as you press. Keep it light and smooth." }
+  ]},
+  "DB Chest Fly (Flat/Sl. Incline)": { "variants": [
+    { "name": "DB Chest Fly (Flat)", "equipment": "Dumbbell", "setup": "Soft elbows, arc the dumbbells out until you feel a pec stretch — never below shoulder depth. Squeeze back up the same arc." },
+    { "name": "DB Chest Fly (Slight Incline)", "equipment": "Dumbbell", "setup": "Bench one notch up. Same soft-elbow arc with a touch more upper-chest bias." },
+    { "name": "Cable Fly (Mid Height)", "equipment": "Cable", "setup": "Pulleys at chest height, step forward with a slight stagger. Constant tension and a deep, safe stretch." },
+    { "name": "Pec-Deck", "equipment": "Machine", "setup": "Seat set so handles line up with mid-chest. Elbows slightly bent, controlled squeeze." }
+  ]},
+  "DB Chest Fly (Slight Incline)": { "variants": [
+    { "name": "DB Chest Fly (Slight Incline)", "equipment": "Dumbbell", "setup": "Bench one notch up, soft elbows, arc out to a pec stretch — don't drop below shoulder level. Stretch-focused." },
+    { "name": "Cable Fly (Low-to-High)", "equipment": "Cable", "setup": "Low pulleys, sweep up and in to shoulder height. Constant tension with an upper-chest bias." },
+    { "name": "Pec-Deck", "equipment": "Machine", "setup": "Handles at mid-chest, elbows soft, pause the squeeze 1 sec." },
+    { "name": "Band Fly", "equipment": "Bands", "setup": "Anchor the band behind you at chest height, press-fly forward until your hands meet." }
+  ]},
+  "Bulgarian Split Squat (DB)": { "variants": [
+    { "name": "Bulgarian Split Squat (DB)", "equipment": "Dumbbell", "setup": "Rear foot laces-down on a bench, front foot 2–3 feet forward. Dumbbells at your sides, drop straight down, drive through the front heel." },
+    { "name": "Bulgarian Split Squat (Smith)", "equipment": "Smith", "setup": "Bar on your back, rear foot on the bench behind the bar path. The fixed track removes the balance demand." },
+    { "name": "Bulgarian Split Squat (Bodyweight)", "equipment": "Bodyweight", "setup": "Hands at your chest, same setup. Use for higher reps or as a warm-up." },
+    { "name": "Split Squat (Front Foot Elevated)", "equipment": "Dumbbell", "setup": "Front foot on a small plate or step, rear foot on the floor — easier balance, deeper range." }
+  ]},
+  "Bulgarian Split Squat (Glute)": { "variants": [
+    { "name": "Bulgarian Split Squat (Glute)", "equipment": "Dumbbell", "setup": "LONG stance, rear foot on the bench, torso leaning forward ~20°. Sit back into the front heel — you should feel the glute stretch every rep." },
+    { "name": "Bulgarian Split Squat (Smith, Glute)", "equipment": "Smith", "setup": "Long front-foot position ahead of the bar, forward torso lean. Machine balance lets you chase the glute stretch safely." },
+    { "name": "Reverse Lunge (Deficit)", "equipment": "Dumbbell", "setup": "Stand on a small platform, step back and down into a long reverse lunge. Similar glute-dominant pattern." },
+    { "name": "Step-Up (High Box)", "equipment": "Dumbbell", "setup": "Knee-height box, lean slightly forward, drive through the heel without pushing off the back leg." }
+  ]},
+  "Tricep Pushdown (Rope)": { "variants": [
+    { "name": "Tricep Pushdown (Rope)", "equipment": "Cable", "setup": "Rope on the high pulley, elbows pinned to your sides. Push down and spread the rope apart at the bottom for the lateral head." },
+    { "name": "Tricep Pushdown (Straight Bar)", "equipment": "Cable", "setup": "Straight or EZ attachment, overhand grip. Roughly 25–30% heavier than your rope number." },
+    { "name": "Band Pushdown", "equipment": "Bands", "setup": "Band anchored overhead, elbows pinned. High-rep friendly — chase the squeeze." },
+    { "name": "Bench Dips", "equipment": "Bodyweight", "setup": "Hands on a bench behind you, legs extended. Lower until upper arms are parallel, elbows pointing straight back." }
+  ]},
+  "Ab Wheel Rollout / Plank": { "variants": [
+    { "name": "Ab Wheel Rollout", "equipment": "Bodyweight", "setup": "Kneel with the wheel under your shoulders. Roll out only as far as you can keep the low back from arching, pull back with your abs." },
+    { "name": "Plank", "equipment": "Bodyweight", "setup": "Forearms down, body in one line, glutes squeezed. Stop the set the moment your hips sag." },
+    { "name": "Cable Crunch (Kneeling)", "equipment": "Cable", "setup": "Rope on the high pulley, kneel and crunch your elbows toward your thighs — flex the spine, don't pull with arms." },
+    { "name": "Swiss Ball Rollout", "equipment": "Bodyweight", "setup": "Forearms on the ball, roll it forward keeping a rigid torso. Easier progression from the wheel." }
+  ]},
+  "Romanian Deadlift": { "variants": [
+    { "name": "Romanian Deadlift", "equipment": "Barbell", "setup": "Bar starts at the hips. Soft knees, push the hips BACK until you feel a hamstring stretch (mid-shin), then squeeze glutes to stand. 3-sec lowering." },
+    { "name": "DB Romanian Deadlift", "equipment": "Dumbbell", "setup": "Dumbbells in front of the thighs, same hip-hinge and 3-sec eccentric. Handy when the bars are taken." },
+    { "name": "Smith RDL", "equipment": "Smith", "setup": "Bar path fixed — stand a half-step forward so the bar tracks your legs while your hips travel back." },
+    { "name": "Cable Pull-Through", "equipment": "Cable", "setup": "Rope between the legs from a low pulley, hinge and snap the hips forward. Same pattern, lower load, joint-friendly." }
+  ]},
+  "Romanian Deadlift (Barbell)": { "variants": [
+    { "name": "Romanian Deadlift (Barbell)", "equipment": "Barbell", "setup": "From the hips: soft knees, hips travel back, bar glued to your legs to mid-shin. Squeeze the glutes to drive the hips forward. Control the 3-sec lowering." },
+    { "name": "DB Romanian Deadlift", "equipment": "Dumbbell", "setup": "Same hinge with dumbbells brushing the thighs. Slightly easier to set up when racks are busy." },
+    { "name": "Smith RDL", "equipment": "Smith", "setup": "Stand half a step in front of the bar path. Hips back, stretch, drive forward." },
+    { "name": "Single-Leg RDL (DB)", "equipment": "Dumbbell", "setup": "One dumbbell, opposite leg drifts back as you hinge. Halve the load, double the balance demand." }
+  ]},
+  "Cable Row (Neutral Grip)": { "variants": [
+    { "name": "Cable Row (Neutral Grip)", "equipment": "Cable", "setup": "V-handle, knees soft, torso tall. Pull to the sternum, retract and depress the shoulder blades, resist the return." },
+    { "name": "Machine Row (Neutral)", "equipment": "Machine", "setup": "Chest pad set for a full stretch at the start. Neutral handles, pull to your ribs." },
+    { "name": "Single-Arm DB Row", "equipment": "Dumbbell", "setup": "Hand and knee on the bench, flat back. Row to your hip, full stretch at the bottom." },
+    { "name": "Banded Seated Row", "equipment": "Bands", "setup": "Band around your feet, sit tall and row to the sternum. Travel-friendly." }
+  ]},
+  "Single-Arm DB Row": { "variants": [
+    { "name": "Single-Arm DB Row", "equipment": "Dumbbell", "setup": "Opposite hand and knee on the bench, back flat. Let the shoulder reach at the bottom, then row to your hip — the free arm moves naturally." },
+    { "name": "Single-Arm Cable Row", "equipment": "Cable", "setup": "D-handle at low-mid height, staggered stance. Same reach-and-pull with constant tension." },
+    { "name": "Meadows Row (Landmine)", "equipment": "Barbell", "setup": "Landmine bar, side-on stance, overhand grip on the sleeve. Big stretch, elbows out slightly." },
+    { "name": "Machine Row (Single Arm)", "equipment": "Machine", "setup": "One arm at a time on the chest-supported machine — pin the chest, full stretch." }
+  ]},
+  "Hip Thrust": { "variants": [
+    { "name": "Hip Thrust (Barbell)", "equipment": "Barbell", "setup": "Upper back on a bench, bar padded over the hips, feet planted so shins are vertical at the top. Full lockout, 1-sec squeeze, chin tucked." },
+    { "name": "Hip Thrust (Machine)", "equipment": "Machine", "setup": "Set the pad over the hips and belt in if available. Same full lockout and squeeze — much faster to load." },
+    { "name": "Glute Bridge (Barbell, Floor)", "equipment": "Barbell", "setup": "Shoulders on the floor, bar over the hips. Shorter range but very stable — good when benches are taken." },
+    { "name": "DB Hip Thrust", "equipment": "Dumbbell", "setup": "Back on the bench, heavy dumbbell across the hips. Use for higher-rep sets." }
+  ]},
+  "Barbell Hip Thrust": { "variants": [
+    { "name": "Barbell Hip Thrust", "equipment": "Barbell", "setup": "Upper back on the bench, padded bar over the hips, vertical shins at lockout. Drive through the heels, 2-sec squeeze at the top — PRIMARY glute builder." },
+    { "name": "Hip Thrust (Machine)", "equipment": "Machine", "setup": "Belt or pad over the hips, back on the machine's rest. Same lockout and squeeze, quicker setup." },
+    { "name": "Smith Hip Thrust", "equipment": "Smith", "setup": "Bench perpendicular under the Smith bar, pad the bar. Fixed path makes heavy loading easy." },
+    { "name": "Glute Bridge (Barbell, Floor)", "equipment": "Barbell", "setup": "From the floor when benches are busy — shorter range, still squeeze hard 2 sec." }
+  ]},
+  "Single-Leg Hip Thrust": { "variants": [
+    { "name": "Single-Leg Hip Thrust", "equipment": "Bodyweight", "setup": "Upper back on the bench, one foot planted, other leg lifted. Drive to full lockout without the hips tilting — fixes L/R imbalances." },
+    { "name": "Single-Leg Hip Thrust (DB)", "equipment": "Dumbbell", "setup": "Add a dumbbell over the working hip once bodyweight passes the top of the rep range." },
+    { "name": "Single-Leg Glute Bridge (Floor)", "equipment": "Bodyweight", "setup": "From the floor, one leg up. Shorter range — squeeze 2 sec at the top." },
+    { "name": "B-Stance Hip Thrust", "equipment": "Barbell", "setup": "Non-working heel lightly planted for balance, ~80% of the load on the working leg. Halfway step to a true single-leg." }
+  ]},
+  "Reverse Fly / Band Pull-Apart": { "variants": [
+    { "name": "Reverse Fly (DB)", "equipment": "Dumbbell", "setup": "Hinge to near-parallel, light dumbbells, soft elbows. Sweep out and back, thumbs slightly down, slow return." },
+    { "name": "Band Pull-Apart", "equipment": "Bands", "setup": "Band at shoulder height, arms straight. Pull apart until it touches your chest, control back. High reps." },
+    { "name": "Reverse Pec-Deck", "equipment": "Machine", "setup": "Face the pad, arms at shoulder height, sweep back with a 1-sec hold." },
+    { "name": "Cable Reverse Fly (Cross)", "equipment": "Cable", "setup": "Pulleys at shoulder height, grab the opposite handle in each hand, sweep out and back." }
+  ]},
+  "Reverse Fly (DB/Cable)": { "variants": [
+    { "name": "Reverse Fly (DB)", "equipment": "Dumbbell", "setup": "Hinge to near-parallel, soft elbows, sweep the dumbbells out and back with slow eccentrics — direct rear-delt prehab." },
+    { "name": "Reverse Fly (Cable, Cross)", "equipment": "Cable", "setup": "Pulleys at shoulder height, arms crossed grabbing opposite handles. Constant tension through the sweep." },
+    { "name": "Reverse Pec-Deck", "equipment": "Machine", "setup": "Chest on the pad, handles at shoulder height, squeeze the blades together each rep." },
+    { "name": "Band Pull-Apart", "equipment": "Bands", "setup": "Arms straight at shoulder height, pull the band to your chest. Great high-rep finisher." }
+  ]},
+  "Seated Calf Raise": { "variants": [
+    { "name": "Seated Calf Raise", "equipment": "Machine", "setup": "Pads on the knees, balls of the feet on the platform. Full stretch at the bottom, 2-sec pause at the top — bone-density loading." },
+    { "name": "Standing Calf Raise (Machine)", "equipment": "Machine", "setup": "Shoulders under the pads, full stretch and 2-sec top pause. Hits the gastrocnemius more with straight knees." },
+    { "name": "Single-Leg Calf Raise (DB)", "equipment": "Dumbbell", "setup": "Ball of one foot on a step, dumbbell in the same-side hand. Full range, slow tempo." },
+    { "name": "Leg Press Calf Raise", "equipment": "Machine", "setup": "Balls of the feet on the bottom edge of the leg-press platform. Stretch, pause, press." }
+  ]},
+  "Hammer Curl (DB)": { "variants": [
+    { "name": "Hammer Curl (DB)", "equipment": "Dumbbell", "setup": "Neutral grip (palms facing in), elbows pinned. Curl without swinging — brachialis and forearm work with a shoulder-friendly grip." },
+    { "name": "Rope Hammer Curl (Cable)", "equipment": "Cable", "setup": "Rope on the low pulley, neutral grip, constant tension through the curl." },
+    { "name": "Cross-Body Hammer Curl", "equipment": "Dumbbell", "setup": "Curl each dumbbell across your body toward the opposite shoulder — extra brachialis bias." },
+    { "name": "Band Hammer Curl", "equipment": "Bands", "setup": "Stand on the band, neutral wrists, strict curls. Travel fallback." }
+  ]},
+  "Side Plank / Suitcase Carry": { "variants": [
+    { "name": "Side Plank", "equipment": "Bodyweight", "setup": "Elbow under shoulder, body in one line, hips lifted. Hold — the set ends when the hips start to drop." },
+    { "name": "Suitcase Carry (DB)", "equipment": "Dumbbell", "setup": "One heavy dumbbell at your side, walk tall without leaning. Swap hands each length — lateral core under load." },
+    { "name": "Suitcase Carry (Kettlebell)", "equipment": "Kettlebell", "setup": "Same single-side carry with a kettlebell — the offset handle adds grip work." },
+    { "name": "Side Plank (Feet Elevated)", "equipment": "Bodyweight", "setup": "Feet on a bench for a harder lever. Keep the line from head to heels." }
+  ]},
+  "Cable Kickback / Glute Bridge": { "variants": [
+    { "name": "Cable Kickback", "equipment": "Cable", "setup": "Ankle cuff on the low pulley, hinge slightly and hold the frame. Kick back and up, squeeze 1 sec at peak — don't arch the low back." },
+    { "name": "Glute Bridge", "equipment": "Bodyweight", "setup": "On the floor, feet planted close to the glutes. Drive the hips up, 2-sec squeeze at the top. Add a dumbbell or band when it gets easy." },
+    { "name": "Machine Kickback", "equipment": "Machine", "setup": "Chest on the pad, foot on the platform, press back and up through the heel to full hip extension." },
+    { "name": "Banded Glute Bridge", "equipment": "Bands", "setup": "Mini-band above the knees, bridge and press the knees out at the top — extra glute-med work." }
+  ]},
+  "Straight-Arm Pulldown": { "variants": [
+    { "name": "Straight-Arm Pulldown", "equipment": "Cable", "setup": "Rope or straight bar on the high pulley, hinge slightly, arms nearly straight. Sweep to your thighs and squeeze the lats at the bottom." },
+    { "name": "DB Pullover", "equipment": "Dumbbell", "setup": "Upper back across a bench, one dumbbell held over the chest. Lower behind your head to a lat stretch, pull back over." },
+    { "name": "Band Straight-Arm Pulldown", "equipment": "Bands", "setup": "Band anchored overhead, hinge and sweep down with straight arms." },
+    { "name": "Machine Pullover", "equipment": "Machine", "setup": "If your gym has one — set the seat so shoulders align with the pivot, sweep and squeeze." }
+  ]},
+  "Sumo Squat (DB/Goblet)": { "variants": [
+    { "name": "Sumo Squat (DB/Goblet)", "equipment": "Dumbbell", "setup": "Wide stance, toes out 45°, dumbbell hanging between your legs (or goblet at the chest). Sit straight down, squeeze glutes and adductors at the top." },
+    { "name": "Sumo Squat (Kettlebell)", "equipment": "Kettlebell", "setup": "Kettlebell by the horns between the legs. Same wide-stance sit — the handle makes heavy sets comfier." },
+    { "name": "Smith Sumo Squat", "equipment": "Smith", "setup": "Wide stance under the bar, toes out. Fixed path for heavier finisher sets." },
+    { "name": "Sumo Leg Press", "equipment": "Machine", "setup": "Feet wide and high on the platform, toes out. Push through the heels." }
+  ]},
+  "Cable Pull-Through": { "variants": [
+    { "name": "Cable Pull-Through", "equipment": "Cable", "setup": "Rope on the low pulley, face away, rope between the legs. Hinge back, then snap the hips forward and squeeze — low joint stress." },
+    { "name": "Banded Pull-Through", "equipment": "Bands", "setup": "Band anchored low behind you, same hinge-and-squeeze. Home-friendly." },
+    { "name": "DB Romanian Deadlift (Light)", "equipment": "Dumbbell", "setup": "Light RDL focusing on the glute squeeze at lockout — same pattern, free weights." },
+    { "name": "45° Back Extension (Glute Focus)", "equipment": "Machine", "setup": "Round the upper back slightly, tuck the chin, squeeze glutes to raise. Don't hyperextend." }
+  ]},
+  "Barbell Bent-Over Row": { "variants": [
+    { "name": "Barbell Bent-Over Row", "equipment": "Barbell", "setup": "Hinge to ~45°, overhand grip outside the knees. Pull to your lower chest, squeeze the mid-back, no torso heave — PRIMARY back builder." },
+    { "name": "Pendlay Row", "equipment": "Barbell", "setup": "Torso parallel, bar starts dead on the floor each rep. Explosive pull, strict reset." },
+    { "name": "Chest-Supported Row (Machine)", "equipment": "Machine", "setup": "Same rowing pattern with zero low-back demand — smart swap after heavy deadlifts." },
+    { "name": "Bent-Over DB Row (Two-Arm)", "equipment": "Dumbbell", "setup": "Hinge with a dumbbell in each hand, row both to your hips. Use when bars are taken." }
+  ]}
+}

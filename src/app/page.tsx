@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import guideData from "@/data/guide-data.json";
+import variantsData from "@/data/exercise-variants.json";
 
 type Exercise = [string, string, string, string, string]; // name, sets, reps, rest, cue
 type Day = { name: string; type: string; exercises: Exercise[] };
@@ -24,9 +25,11 @@ type Entry = {
     rir?: string;
     notes?: string;
     setsDetail?: SetDetail[];
+    base?: string;
   };
 };
 type SummaryRow = { entry_date: string; logged_by: string; n: number };
+type Variant = { name: string; equipment: string; setup: string };
 type GuideItem = { label: string; text: string; who?: string };
 type GuideSection = { title: string; intro: string; items: GuideItem[]; accent: string };
 type GuideTabData = { id: string; title: string; sections: GuideSection[] };
@@ -50,6 +53,69 @@ const MONTHS = [
 
 /** Rolling training cycle: program-day index, or "recovery". */
 const CYCLE: (number | "recovery")[] = [0, 1, "recovery", 2, 3];
+
+const VMAP = variantsData as Record<string, { variants: Variant[] }>;
+const VARIANT_TO_BASE: Record<string, string> = {};
+for (const [base, v] of Object.entries(VMAP)) {
+  VARIANT_TO_BASE[base] = base;
+  for (const x of v.variants) VARIANT_TO_BASE[x.name] = base;
+}
+function baseOf(exName: string): string {
+  return VARIANT_TO_BASE[exName] ?? exName;
+}
+
+/** "2–3 min" → 180, "90 sec" → 90, "3 min" → 180, "60 sec" → 60 */
+function restSeconds(rest: string): number {
+  const range = rest.match(/(\d+)\s*[–\-]\s*(\d+)\s*min/i);
+  if (range) return Number(range[2]) * 60;
+  const min = rest.match(/(\d+(?:\.\d+)?)\s*min/i);
+  if (min) return Number(min[1]) * 60;
+  const sec = rest.match(/(\d+)\s*sec/i);
+  if (sec) return Number(sec[1]);
+  return 90;
+}
+function fmtClock(s: number): string {
+  const m = Math.floor(s / 60);
+  const ss = s % 60;
+  return `${m}:${String(ss).padStart(2, "0")}`;
+}
+function chime() {
+  try {
+    const Ctx = window.AudioContext ?? (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
+    const ctx = new Ctx();
+    [880, 1174].forEach((f, i) => {
+      const o = ctx.createOscillator();
+      const g = ctx.createGain();
+      o.connect(g);
+      g.connect(ctx.destination);
+      o.frequency.value = f;
+      const t = ctx.currentTime + i * 0.18;
+      g.gain.setValueAtTime(0.12, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.5);
+      o.start(t);
+      o.stop(t + 0.55);
+    });
+  } catch {
+    /* audio unavailable */
+  }
+}
+
+const Icon = ({ d, className }: { d: string; className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    className={className ?? "h-3.5 w-3.5"}
+  >
+    <path d={d} />
+  </svg>
+);
+const ICON_SWAP = "M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4";
+const ICON_CLOCK = "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z";
+const ICON_INFO = "M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z";
 
 function iso(d: Date): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(
@@ -180,6 +246,55 @@ export default function Home() {
 
   const [historyExercise, setHistoryExercise] = useState("");
 
+  // exercise variant selection (remember last used, per trainee)
+  const [variantSel, setVariantSel] = useState<Record<string, string>>({});
+  function chooseVariant(base: string, variantName: string) {
+    setVariantSel((v) => {
+      const next = { ...v, [base]: variantName };
+      try {
+        window.localStorage.setItem(`bw_variants_${trainee}`, JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  }
+
+  // rest timer (one active at a time)
+  const [timer, setTimer] = useState<{ ex: string; total: number; endsAt: number } | null>(null);
+  const [, setTick] = useState(0);
+  const timerDone = useRef(false);
+  useEffect(() => {
+    if (!timer) return;
+    timerDone.current = false;
+    const int = setInterval(() => {
+      setTick((t) => t + 1);
+      if (Date.now() >= timer.endsAt && !timerDone.current) {
+        timerDone.current = true;
+        chime();
+        setTimeout(() => setTimer((cur) => (cur === timer ? null : cur)), 4000);
+      }
+    }, 250);
+    return () => clearInterval(int);
+  }, [timer]);
+  function startTimer(ex: string, seconds: number) {
+    setTimer({ ex, total: seconds, endsAt: Date.now() + seconds * 1000 });
+  }
+
+  // daily start screen
+  const [showStart, setShowStart] = useState(false);
+  useEffect(() => {
+    try {
+      if (window.localStorage.getItem("bw_start_seen") !== todayIso()) setShowStart(true);
+    } catch {}
+  }, []);
+  function dismissStart() {
+    try {
+      window.localStorage.setItem("bw_start_seen", today);
+    } catch {}
+    setShowStart(false);
+    setTab("workout");
+    pickDate(today);
+  }
+
   const [calMonth, setCalMonth] = useState(() => {
     const n = new Date();
     return new Date(n.getFullYear(), n.getMonth(), 1);
@@ -266,6 +381,11 @@ export default function Home() {
     dayManual.current = false;
     setForms({});
     setHistoryExercise("");
+    try {
+      setVariantSel(JSON.parse(window.localStorage.getItem(`bw_variants_${trainee}`) ?? "{}"));
+    } catch {
+      setVariantSel({});
+    }
     loadEntries();
   }, [trainee, loadEntries]);
 
@@ -292,11 +412,19 @@ export default function Home() {
   const traineeMeta = TRAINEES.find((t) => t.id === trainee)!;
 
   /* ---------- derived from entries ---------- */
+  // most recent entry BEFORE the selected date, per exact variant name and per base exercise
   const prevByExercise = useMemo(() => {
     const map: Record<string, Entry> = {};
     for (const e of entries) {
-      // "previous" = most recent entry BEFORE the selected date
       if (e.entry_date < selectedDate && !map[e.data.exercise]) map[e.data.exercise] = e;
+    }
+    return map;
+  }, [entries, selectedDate]);
+  const prevByBase = useMemo(() => {
+    const map: Record<string, Entry> = {};
+    for (const e of entries) {
+      const b = baseOf(e.data.exercise);
+      if (e.entry_date < selectedDate && !map[b]) map[b] = e;
     }
     return map;
   }, [entries, selectedDate]);
@@ -307,7 +435,7 @@ export default function Home() {
   );
   const loggedOnSelected = useMemo(() => {
     const s = new Set<string>();
-    for (const e of selectedDayEntriesMine) s.add(e.data.exercise);
+    for (const e of selectedDayEntriesMine) s.add(baseOf(e.data.exercise));
     return s;
   }, [selectedDayEntriesMine]);
 
@@ -376,29 +504,39 @@ export default function Home() {
 
   const day = days[dayIdx];
 
-  /* ---------- form helpers ---------- */
-  function formFor(ex: Exercise) {
-    const name = ex[0];
-    const nSets = Math.max(1, parseInt(ex[1]) || 3);
+  /* ---------- form helpers (keyed by chosen variant name) ---------- */
+  function formFor(key: string, nSets: number) {
     return (
-      forms[name] ?? {
-        rows: Array.from({ length: nSets }, () => ({ weight: "", reps: "" })),
+      forms[key] ?? {
+        rows: Array.from({ length: Math.max(1, nSets) }, () => ({ weight: "", reps: "" })),
         rir: "",
         notes: "",
       }
     );
   }
-  function setRow(ex: Exercise, i: number, patch: Partial<SetDetail>) {
-    const f = formFor(ex);
-    const rows = f.rows.map((r, j) => (j === i ? { ...r, ...patch } : r));
-    setForms((all) => ({ ...all, [ex[0]]: { ...f, rows } }));
+  function setRow(
+    key: string,
+    nSets: number,
+    i: number,
+    patch: Partial<SetDetail>,
+    restSecs?: number
+  ) {
+    const f = formFor(key, nSets);
+    const before = f.rows[i];
+    const after = { ...before, ...patch };
+    const rows = f.rows.map((r, j) => (j === i ? after : r));
+    setForms((all) => ({ ...all, [key]: { ...f, rows } }));
+    // auto-start the rest timer the moment a set becomes complete
+    const wasComplete = !!(before.weight && before.reps);
+    const isComplete = !!(after.weight && after.reps);
+    if (!wasComplete && isComplete && restSecs) startTimer(key, restSecs);
   }
-  function setMeta(ex: Exercise, patch: Partial<{ rir: string; notes: string }>) {
-    const f = formFor(ex);
-    setForms((all) => ({ ...all, [ex[0]]: { ...f, ...patch } }));
+  function setMeta(key: string, nSets: number, patch: Partial<{ rir: string; notes: string }>) {
+    const f = formFor(key, nSets);
+    setForms((all) => ({ ...all, [key]: { ...f, ...patch } }));
   }
-  function prevSetFor(name: string, i: number): SetDetail | null {
-    const p = prevByExercise[name];
+  function prevSetFor(variantName: string, i: number): SetDetail | null {
+    const p = prevByExercise[variantName];
     if (!p) return null;
     const det = p.data.setsDetail;
     if (det && det[i]) return det[i];
@@ -407,12 +545,13 @@ export default function Home() {
     return null;
   }
 
-  async function saveExercise(ex: Exercise) {
-    const name = ex[0];
-    const f = formFor(ex);
+  async function saveExercise(ex: Exercise, variantName: string) {
+    const base = ex[0];
+    const nSets = parseInt(ex[1]) || 3;
+    const f = formFor(variantName, nSets);
     const filled = f.rows.filter((r) => r.weight || r.reps);
     if (!filled.length) return;
-    setSaving((s) => ({ ...s, [name]: true }));
+    setSaving((s) => ({ ...s, [variantName]: true }));
     const weights = filled.map((r) => parseFloat(r.weight)).filter((n) => !isNaN(n));
     const res = await fetch("/api/entries", {
       method: "POST",
@@ -421,7 +560,8 @@ export default function Home() {
         loggedBy: trainee,
         entryDate: selectedDate,
         data: {
-          exercise: name,
+          exercise: variantName,
+          base,
           day: day?.name ?? "",
           setsDetail: filled,
           weight: weights.length ? String(Math.max(...weights)) : "",
@@ -432,11 +572,11 @@ export default function Home() {
         },
       }),
     });
-    setSaving((s) => ({ ...s, [name]: false }));
+    setSaving((s) => ({ ...s, [variantName]: false }));
     if (res.ok) {
       setForms((all) => {
         const cp = { ...all };
-        delete cp[name];
+        delete cp[variantName];
         return cp;
       });
       loadEntries();
@@ -558,6 +698,124 @@ export default function Home() {
 
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-4 pb-28 pt-5">
+      {/* ============ DAILY START SCREEN ============ */}
+      {showStart && (
+        <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black px-6">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-zinc-500">
+            {WEEKDAYS_FULL[(fromIso(today).getDay() + 6) % 7]} · {niceDate(today)}
+          </p>
+          <h1 className="mt-2 text-4xl font-black uppercase italic tracking-tight">
+            Body<span style={{ color: LIME }}>Workshop</span>
+          </h1>
+
+          <p className="mt-10 text-[11px] font-black uppercase tracking-[0.25em] text-zinc-500">
+            Who&apos;s training?
+          </p>
+          <div className="mt-3 flex gap-3">
+            {TRAINEES.map((t) => (
+              <button
+                key={t.id}
+                onClick={() => setTrainee(t.id)}
+                className="rounded-2xl border-2 px-8 py-3 text-lg font-black uppercase italic tracking-tight transition"
+                style={
+                  trainee === t.id
+                    ? { borderColor: t.color, color: t.color, background: "rgba(255,255,255,.04)" }
+                    : { borderColor: "#27272a", color: "#52525b" }
+                }
+              >
+                {t.name}
+              </button>
+            ))}
+          </div>
+
+          <p className="mt-10 text-[11px] font-black uppercase tracking-[0.25em] text-zinc-500">
+            Today&apos;s session
+          </p>
+          {adaptive.kind === "recovery" ? (
+            <p className="mt-2 text-center text-2xl font-black uppercase italic tracking-tight text-zinc-300">
+              Active Recovery
+              <span className="mt-1 block text-xs font-semibold normal-case not-italic text-zinc-500">
+                {adaptive.reason} — or pick a lifting day below.
+              </span>
+            </p>
+          ) : (
+            <p className="mt-2 text-center text-3xl font-black uppercase italic tracking-tight" style={{ color: LIME }}>
+              {day?.name.split("—")[0].trim() ?? "…"}
+              <span className="mt-1 block text-xs font-semibold normal-case not-italic text-zinc-400">
+                {day?.name.split("—")[1]?.trim() ?? ""} · {adaptive.reason}
+              </span>
+            </p>
+          )}
+          <select
+            value={dayIdx}
+            onChange={(e) => {
+              dayManual.current = true;
+              setDayIdx(Number(e.target.value));
+            }}
+            className="mt-4 appearance-none rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-2 text-center text-xs font-bold text-zinc-300 outline-none"
+          >
+            {days.map((d, i) => (
+              <option key={d.name} value={i}>
+                {d.name}
+              </option>
+            ))}
+          </select>
+
+          <button
+            onClick={dismissStart}
+            className="mt-10 w-full max-w-sm rounded-full py-4 text-base font-black uppercase tracking-wide"
+            style={{ background: LIME, color: "#0a0a0a" }}
+          >
+            Start Workout
+          </button>
+          <button
+            onClick={dismissStart}
+            className="mt-3 text-xs font-semibold text-zinc-600 underline-offset-2 hover:underline"
+          >
+            Just browsing
+          </button>
+        </div>
+      )}
+
+      {/* ============ FLOATING REST TIMER ============ */}
+      {timer && (
+        <div className="fixed inset-x-0 bottom-16 z-20 mx-auto w-full max-w-2xl px-4">
+          <div
+            className="flex items-center gap-3 rounded-2xl border bg-zinc-950/95 p-3 backdrop-blur"
+            style={{ borderColor: Date.now() >= timer.endsAt ? LIME : "#3f3f46" }}
+          >
+            <span style={{ color: LIME }}>
+              <Icon d={ICON_CLOCK} className="h-5 w-5" />
+            </span>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[10px] font-black uppercase tracking-wider text-zinc-500">
+                Rest · {timer.ex}
+              </p>
+              <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-zinc-800">
+                <div
+                  className="h-full rounded-full transition-all"
+                  style={{
+                    background: LIME,
+                    width: `${Math.max(0, Math.min(100, ((timer.endsAt - Date.now()) / (timer.total * 1000)) * 100))}%`,
+                  }}
+                />
+              </div>
+            </div>
+            <span className="text-xl font-black tabular-nums" style={{ color: Date.now() >= timer.endsAt ? LIME : "#e4e4e7" }}>
+              {Date.now() >= timer.endsAt
+                ? "GO ✓"
+                : fmtClock(Math.ceil((timer.endsAt - Date.now()) / 1000))}
+            </span>
+            <button
+              onClick={() => setTimer(null)}
+              className="rounded-full border border-zinc-700 px-2 py-1 text-[10px] font-black uppercase text-zinc-400"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* header */}
       <header className="mb-4 flex items-center justify-between gap-3">
         <h1 className="text-2xl font-black uppercase italic tracking-tight">
@@ -738,10 +996,24 @@ export default function Home() {
           <div className="space-y-4">
             {(day?.exercises ?? []).map((ex) => {
               const [name, sets, reps, rest, cue] = ex;
-              const f = formFor(ex);
+              const nSets = parseInt(sets) || 3;
+              const restS = restSeconds(rest);
+              const vlist: Variant[] = VMAP[name]?.variants ?? [
+                { name, equipment: "", setup: cue },
+              ];
+              const chosen =
+                variantSel[name] && vlist.some((v) => v.name === variantSel[name])
+                  ? variantSel[name]
+                  : vlist[0].name;
+              const cv = vlist.find((v) => v.name === chosen)!;
+              const f = formFor(chosen, nSets);
               const done = loggedOnSelected.has(name);
-              const loggedEntry = selectedDayEntriesMine.find((e) => e.data.exercise === name);
-              const suggestion = suggestNext(ex, prevByExercise[name]);
+              const loggedEntry = selectedDayEntriesMine.find(
+                (e) => baseOf(e.data.exercise) === name
+              );
+              const prevExact = prevByExercise[chosen];
+              const prevFallback = !prevExact ? prevByBase[name] : undefined;
+              const suggestion = suggestNext(ex, prevExact);
               return (
                 <section
                   key={name}
@@ -751,7 +1023,7 @@ export default function Home() {
                 >
                   <div className="mb-1 flex items-start justify-between gap-2">
                     <h3 className="text-base font-extrabold uppercase leading-snug tracking-tight">
-                      {name}
+                      {chosen}
                     </h3>
                     {done && (
                       <span
@@ -762,10 +1034,74 @@ export default function Home() {
                       </span>
                     )}
                   </div>
+
+                  {/* swap + equipment + rest timer row */}
+                  <div className="mb-2 flex flex-wrap items-center gap-2">
+                    {vlist.length > 1 && (
+                      <label className="relative inline-flex items-center">
+                        <span
+                          className="pointer-events-none absolute left-2.5 flex items-center gap-1 text-[10px] font-black uppercase tracking-wider"
+                          style={{ color: LIME }}
+                        >
+                          <Icon d={ICON_SWAP} className="h-3 w-3" />
+                          Swap
+                        </span>
+                        <select
+                          value={chosen}
+                          onChange={(e) => chooseVariant(name, e.target.value)}
+                          className="appearance-none rounded-full border border-zinc-700 bg-zinc-900 py-1.5 pl-16 pr-3 text-[11px] font-bold text-zinc-200 outline-none focus:border-[#DBFF4A]/60"
+                        >
+                          {vlist.map((v) => (
+                            <option key={v.name} value={v.name}>
+                              {v.name} · {v.equipment}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    )}
+                    {cv.equipment && (
+                      <span className="rounded-full border border-zinc-700 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-zinc-400">
+                        {cv.equipment}
+                      </span>
+                    )}
+                    <button
+                      onClick={() => startTimer(chosen, restS)}
+                      className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-zinc-700 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-zinc-300 hover:border-[#DBFF4A]/60"
+                      title="Start rest timer"
+                    >
+                      <Icon d={ICON_CLOCK} className="h-3 w-3" />
+                      Rest {rest}
+                    </button>
+                  </div>
+
                   <p className="text-xs font-semibold text-zinc-400">
-                    {sets} sets × {reps} · rest {rest}
+                    {sets} sets × {reps}
                   </p>
                   <p className="mt-1 text-xs leading-relaxed text-zinc-500">{cue}</p>
+
+                  {/* setup mini-guide — follows the selected equipment */}
+                  <div className="mt-2 flex gap-2 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2.5">
+                    <span className="mt-0.5 shrink-0 text-zinc-500">
+                      <Icon d={ICON_INFO} className="h-3.5 w-3.5" />
+                    </span>
+                    <p className="text-[11px] leading-relaxed text-zinc-400">
+                      <span className="font-black uppercase tracking-wider text-zinc-500">
+                        Setup ·{" "}
+                      </span>
+                      {cv.setup}
+                    </p>
+                  </div>
+
+                  {prevFallback && !done && (
+                    <p className="mt-2 text-[11px] font-semibold text-zinc-500">
+                      Last time you did{" "}
+                      <span style={{ color: traineeMeta.color }}>
+                        {prevFallback.data.exercise}
+                      </span>{" "}
+                      here ({entryTopWeight(prevFallback) ?? "?"} kg,{" "}
+                      {niceDate(prevFallback.entry_date)}) — no log yet for this variation.
+                    </p>
+                  )}
 
                   {suggestion && !done && (
                     <button
@@ -774,7 +1110,7 @@ export default function Home() {
                           const rows = f.rows.map((r) =>
                             r.weight ? r : { ...r, weight: suggestion.fill! }
                           );
-                          setForms((all) => ({ ...all, [name]: { ...f, rows } }));
+                          setForms((all) => ({ ...all, [chosen]: { ...f, rows } }));
                         }
                       }}
                       className="mt-2 block w-full rounded-xl border border-dashed px-3 py-2 text-left text-[11px] font-bold"
@@ -825,7 +1161,7 @@ export default function Home() {
                         </div>
                         <div className="space-y-1.5">
                           {f.rows.map((row, i) => {
-                            const prev = prevSetFor(name, i);
+                            const prev = prevSetFor(chosen, i);
                             return (
                               <div
                                 key={i}
@@ -841,7 +1177,7 @@ export default function Home() {
                                   type="button"
                                   onClick={() =>
                                     prev &&
-                                    setRow(ex, i, {
+                                    setRow(chosen, nSets, i, {
                                       weight: prev.weight,
                                       reps: /^\d+$/.test(prev.reps) ? prev.reps : "",
                                     })
@@ -852,14 +1188,18 @@ export default function Home() {
                                 </button>
                                 <input
                                   value={row.weight}
-                                  onChange={(e) => setRow(ex, i, { weight: e.target.value })}
+                                  onChange={(e) =>
+                                    setRow(chosen, nSets, i, { weight: e.target.value }, restS)
+                                  }
                                   inputMode="decimal"
                                   placeholder={prev?.weight || "kg"}
                                   className="rounded-lg border border-zinc-800 bg-zinc-900 px-2 py-2 text-center text-sm font-bold outline-none focus:border-[#DBFF4A]/60"
                                 />
                                 <select
                                   value={row.reps}
-                                  onChange={(e) => setRow(ex, i, { reps: e.target.value })}
+                                  onChange={(e) =>
+                                    setRow(chosen, nSets, i, { reps: e.target.value }, restS)
+                                  }
                                   className="appearance-none rounded-lg border border-zinc-800 bg-zinc-900 px-2 py-2 text-center text-sm font-bold outline-none focus:border-[#DBFF4A]/60"
                                 >
                                   <option value="">–</option>
@@ -882,7 +1222,7 @@ export default function Home() {
                           </span>
                           <select
                             value={f.rir}
-                            onChange={(e) => setMeta(ex, { rir: e.target.value })}
+                            onChange={(e) => setMeta(chosen, nSets, { rir: e.target.value })}
                             className={selectCls}
                           >
                             <option value="">–</option>
@@ -899,7 +1239,7 @@ export default function Home() {
                           </span>
                           <input
                             value={f.notes}
-                            onChange={(e) => setMeta(ex, { notes: e.target.value })}
+                            onChange={(e) => setMeta(chosen, nSets, { notes: e.target.value })}
                             placeholder="Went up on set 2…"
                             className={inputCls}
                           />
@@ -907,12 +1247,12 @@ export default function Home() {
                       </div>
 
                       <button
-                        onClick={() => saveExercise(ex)}
-                        disabled={saving[name] || !f.rows.some((r) => r.weight)}
+                        onClick={() => saveExercise(ex, chosen)}
+                        disabled={saving[chosen] || !f.rows.some((r) => r.weight)}
                         className="mt-3 w-full rounded-xl py-2.5 text-sm font-black uppercase tracking-wide transition disabled:opacity-40"
                         style={{ background: LIME, color: "#0a0a0a" }}
                       >
-                        {saving[name]
+                        {saving[chosen]
                           ? "Saving…"
                           : `Save ${f.rows.filter((r) => r.weight).length || ""} set${
                               f.rows.filter((r) => r.weight).length === 1 ? "" : "s"
@@ -1023,17 +1363,62 @@ export default function Home() {
           </p>
 
           <div className="mb-5 flex rounded-full border border-zinc-800 bg-zinc-900 p-1">
-            {(guideData.tabs as GuideTabData[]).map((g) => (
+            {[
+              ...(guideData.tabs as GuideTabData[]).map((g) => ({ id: g.id, title: g.title })),
+              { id: "swaps", title: "Swaps" },
+            ].map((g) => (
               <button
                 key={g.id}
                 onClick={() => setGuideTab(g.id)}
-                className="flex-1 rounded-full px-3 py-1.5 text-xs font-black uppercase tracking-wide transition"
+                className="flex-1 rounded-full px-2 py-1.5 text-[11px] font-black uppercase tracking-wide transition"
                 style={guideTab === g.id ? { background: LIME, color: "#0a0a0a" } : { color: "#71717a" }}
               >
                 {g.title}
               </button>
             ))}
           </div>
+
+          {guideTab === "swaps" && (
+            <div className="space-y-4">
+              <section className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-4">
+                <h3 className="flex items-center gap-2 text-sm font-extrabold uppercase tracking-tight">
+                  <span style={{ color: LIME }}>
+                    <Icon d={ICON_SWAP} className="h-4 w-4" />
+                  </span>
+                  Equipment Swaps
+                </h3>
+                <p className="mt-1.5 text-xs leading-relaxed text-zinc-400">
+                  Every exercise in the program can be swapped from the Workout tab when a machine
+                  or bar is taken. Each alternative targets the same muscles with the same intent —
+                  the log records exactly which variation was performed, and progress is tracked
+                  per variation. Setup instructions change automatically with your selection.
+                </p>
+              </section>
+              {Object.entries(VMAP).map(([base, v]) => (
+                <section key={base} className="rounded-3xl border border-zinc-800 bg-zinc-900/50 p-4">
+                  <h3 className="text-sm font-extrabold uppercase tracking-tight">{base}</h3>
+                  <div className="mt-3 space-y-3">
+                    {v.variants.map((it, ii) => (
+                      <div key={ii} className="border-l-2 pl-3" style={{ borderColor: ii === 0 ? LIME : "#3f3f46" }}>
+                        <p className="text-xs font-bold" style={{ color: ii === 0 ? LIME : "#e4e4e7" }}>
+                          {it.name}
+                          <span className="ml-2 rounded-full border border-zinc-700 px-1.5 py-0.5 text-[9px] font-black uppercase tracking-wider text-zinc-500">
+                            {it.equipment}
+                          </span>
+                          {ii === 0 && (
+                            <span className="ml-1.5 text-[9px] font-black uppercase tracking-wider text-zinc-500">
+                              · program default
+                            </span>
+                          )}
+                        </p>
+                        <p className="mt-0.5 text-xs leading-relaxed text-zinc-400">{it.setup}</p>
+                      </div>
+                    ))}
+                  </div>
+                </section>
+              ))}
+            </div>
+          )}
 
           <div className="space-y-4">
             {(guideData.tabs as GuideTabData[])
