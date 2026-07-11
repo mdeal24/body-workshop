@@ -19,6 +19,29 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(rows);
 }
 
+export async function DELETE(req: NextRequest) {
+  const sql = getDb();
+  const id = req.nextUrl.searchParams.get("id");
+  const loggedBy = req.nextUrl.searchParams.get("logged_by");
+  const date = req.nextUrl.searchParams.get("date");
+  if (id) {
+    const rows = await sql`DELETE FROM workout_entries WHERE id = ${id} RETURNING id`;
+    return NextResponse.json({ ok: true, deleted: rows.length });
+  }
+  if (loggedBy && date) {
+    const rows = await sql`
+      DELETE FROM workout_entries
+      WHERE logged_by = ${loggedBy} AND entry_date = ${date}
+      RETURNING id
+    `;
+    return NextResponse.json({ ok: true, deleted: rows.length });
+  }
+  return NextResponse.json(
+    { error: "provide id, or logged_by and date" },
+    { status: 400 }
+  );
+}
+
 export async function POST(req: NextRequest) {
   const sql = getDb();
   const body = await req.json();
