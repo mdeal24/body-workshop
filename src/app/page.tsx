@@ -223,11 +223,20 @@ export default function Home() {
     [weekStart]
   );
 
+  // guard against out-of-order responses when the trainee toggles quickly
+  const traineeRef = useRef(trainee);
+  traineeRef.current = trainee;
+
   const loadEntries = useCallback(() => {
-    fetch(`/api/entries?logged_by=${trainee}`)
+    const who = trainee;
+    fetch(`/api/entries?logged_by=${who}`, { cache: "no-store" })
       .then((r) => r.json())
-      .then(setEntries)
-      .catch(() => setEntries([]));
+      .then((data) => {
+        if (traineeRef.current === who && Array.isArray(data)) setEntries(data);
+      })
+      .catch(() => {
+        if (traineeRef.current === who) setEntries([]);
+      });
   }, [trainee]);
 
   const loadWeekSummary = useCallback(() => {
@@ -237,9 +246,14 @@ export default function Home() {
       .catch(() => setWeekSummary([]));
   }, [weekDates]);
 
+  const booted = useRef(false);
   useEffect(() => {
     const saved = window.localStorage.getItem("bw_trainee");
-    if (saved === "male" || saved === "female") setTrainee(saved);
+    if (saved === "male" || saved === "female") {
+      traineeRef.current = saved; // invalidate any in-flight fetch for the default trainee
+      setTrainee(saved);
+    }
+    booted.current = true;
     fetch("/api/programs")
       .then((r) => r.json())
       .then(setPrograms)
@@ -247,6 +261,7 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
+    if (!booted.current) return; // wait until the saved trainee is restored
     window.localStorage.setItem("bw_trainee", trainee);
     dayManual.current = false;
     setForms({});
