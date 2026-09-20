@@ -721,7 +721,10 @@ export default function Home() {
   const selWeekday = WEEKDAYS_FULL[(fromIso(selectedDate).getDay() + 6) % 7];
 
   /** One exercise card. `ss` positions it inside a superset block. */
-  const exerciseCard = (ex: Exercise, ss?: { pos: number; total: number }) => {
+  const exerciseCard = (
+    ex: Exercise,
+    ss?: { pos: number; total: number; nextSets: number }
+  ) => {
     const [name, sets, reps, rest, cue] = ex;
     const nSets = parseInt(sets) || 3;
     const restS = restSeconds(rest);
@@ -743,8 +746,16 @@ export default function Home() {
     const suggestion = suggestNext(ex, prevExact);
     const letter = ss ? ssLetter(ss.pos) : null;
     const nextLetter = ss && ss.pos < ss.total - 1 ? ssLetter(ss.pos + 1) : null;
-    const gapS = nextLetter ? SUPERSET_SWITCH : restS;
-    const gapLabel = nextLetter ? `Go to ${nextLetter}` : "Rest";
+    /**
+     * A partner set only exists while the next move still has one. Blocks pair a
+     * 3-set move with a 2-set move, so the last round takes the block's rest
+     * rather than the 15s switch to a move that is already finished.
+     */
+    const gapFor = (i: number) =>
+      nextLetter && i < (ss?.nextSets ?? 0)
+        ? { secs: SUPERSET_SWITCH, label: `Go to ${nextLetter}` }
+        : { secs: restS, label: "Rest" };
+    const gap0 = gapFor(0);
     return (
       <section
         key={name}
@@ -804,12 +815,12 @@ export default function Home() {
             </span>
           )}
           <button
-            onClick={() => startTimer(chosen, gapS, gapLabel)}
+            onClick={() => startTimer(chosen, gap0.secs, gap0.label)}
             className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-zinc-700 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-zinc-300 hover:border-[#DBFF4A]/60"
             title={nextLetter ? `No rest — go straight to ${nextLetter}` : "Start rest timer"}
           >
             <Icon d={ICON_CLOCK} className="h-3 w-3" />
-            {nextLetter ? gapLabel : `Rest ${rest}`}
+            {nextLetter ? gap0.label : `Rest ${rest}`}
           </button>
         </div>
 
@@ -928,7 +939,7 @@ export default function Home() {
                       <input
                         value={row.weight}
                         onChange={(e) =>
-                          setRow(chosen, nSets, i, { weight: e.target.value }, gapS, gapLabel)
+                          setRow(chosen, nSets, i, { weight: e.target.value }, gapFor(i).secs, gapFor(i).label)
                         }
                         inputMode="decimal"
                         placeholder={prev?.weight || "kg"}
@@ -937,7 +948,7 @@ export default function Home() {
                       <select
                         value={row.reps}
                         onChange={(e) =>
-                          setRow(chosen, nSets, i, { reps: e.target.value }, gapS, gapLabel)
+                          setRow(chosen, nSets, i, { reps: e.target.value }, gapFor(i).secs, gapFor(i).label)
                         }
                         className="appearance-none rounded-lg border border-zinc-800 bg-zinc-900 px-2 py-2 text-center text-sm font-bold outline-none focus:border-[#DBFF4A]/60"
                       >
@@ -1327,7 +1338,13 @@ export default function Home() {
                     </span>
                   </div>
                   <div className="space-y-2.5">
-                    {b.items.map((ex, i) => exerciseCard(ex, { pos: i, total: b.items.length }))}
+                    {b.items.map((ex, i) =>
+                      exerciseCard(ex, {
+                        pos: i,
+                        total: b.items.length,
+                        nextSets: parseInt(b.items[i + 1]?.[1] ?? "") || 0,
+                      })
+                    )}
                   </div>
                 </div>
               ) : (
