@@ -4,7 +4,9 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import guideData from "@/data/guide-data.json";
 import variantsData from "@/data/exercise-variants.json";
 
-type Exercise = [string, string, string, string, string]; // name, sets, reps, rest, cue
+/** name, sets, reps, rest, cue, and an optional superset tag shared by the block. */
+type Exercise = [string, string, string, string, string, string?];
+type Block = { ss: string | null; items: Exercise[] };
 type Day = { name: string; type: string; exercises: Exercise[] };
 type Program = {
   id: string;
@@ -63,6 +65,22 @@ for (const [base, v] of Object.entries(VMAP)) {
 function baseOf(exName: string): string {
   return VARIANT_TO_BASE[exName] ?? exName;
 }
+
+/** Seconds to move between the halves of a superset — walk over, no real rest. */
+const SUPERSET_SWITCH = 15;
+
+/** Consecutive exercises sharing a superset tag become one block. */
+function groupBlocks(exercises: Exercise[]): Block[] {
+  const blocks: Block[] = [];
+  for (const ex of exercises) {
+    const ss = ex[5] ?? null;
+    const last = blocks[blocks.length - 1];
+    if (ss && last && last.ss === ss) last.items.push(ex);
+    else blocks.push({ ss, items: [ex] });
+  }
+  return blocks;
+}
+const ssLetter = (i: number) => String.fromCharCode(65 + i);
 
 /** "2–3 min" → 180, "90 sec" → 90, "3 min" → 180, "60 sec" → 60 */
 function restSeconds(rest: string): number {
@@ -259,7 +277,12 @@ export default function Home() {
   }
 
   // rest timer (one active at a time)
-  const [timer, setTimer] = useState<{ ex: string; total: number; endsAt: number } | null>(null);
+  const [timer, setTimer] = useState<{
+    ex: string;
+    total: number;
+    endsAt: number;
+    label: string;
+  } | null>(null);
   const [, setTick] = useState(0);
   const timerDone = useRef(false);
   useEffect(() => {
@@ -275,8 +298,8 @@ export default function Home() {
     }, 250);
     return () => clearInterval(int);
   }, [timer]);
-  function startTimer(ex: string, seconds: number) {
-    setTimer({ ex, total: seconds, endsAt: Date.now() + seconds * 1000 });
+  function startTimer(ex: string, seconds: number, label = "Rest") {
+    setTimer({ ex, total: seconds, endsAt: Date.now() + seconds * 1000, label });
   }
 
   // daily start screen
@@ -519,7 +542,8 @@ export default function Home() {
     nSets: number,
     i: number,
     patch: Partial<SetDetail>,
-    restSecs?: number
+    restSecs?: number,
+    restLabel?: string
   ) {
     const f = formFor(key, nSets);
     const before = f.rows[i];
@@ -529,7 +553,7 @@ export default function Home() {
     // auto-start the rest timer the moment a set becomes complete
     const wasComplete = !!(before.weight && before.reps);
     const isComplete = !!(after.weight && after.reps);
-    if (!wasComplete && isComplete && restSecs) startTimer(key, restSecs);
+    if (!wasComplete && isComplete && restSecs) startTimer(key, restSecs, restLabel);
   }
   function setMeta(key: string, nSets: number, patch: Partial<{ rir: string; notes: string }>) {
     const f = formFor(key, nSets);
@@ -696,6 +720,289 @@ export default function Home() {
 
   const selWeekday = WEEKDAYS_FULL[(fromIso(selectedDate).getDay() + 6) % 7];
 
+  /** One exercise card. `ss` positions it inside a superset block. */
+  const exerciseCard = (ex: Exercise, ss?: { pos: number; total: number }) => {
+    const [name, sets, reps, rest, cue] = ex;
+    const nSets = parseInt(sets) || 3;
+    const restS = restSeconds(rest);
+    const vlist: Variant[] = VMAP[name]?.variants ?? [
+      { name, equipment: "", setup: cue },
+    ];
+    const chosen =
+      variantSel[name] && vlist.some((v) => v.name === variantSel[name])
+        ? variantSel[name]
+        : vlist[0].name;
+    const cv = vlist.find((v) => v.name === chosen)!;
+    const f = formFor(chosen, nSets);
+    const done = loggedOnSelected.has(name);
+    const loggedEntry = selectedDayEntriesMine.find(
+      (e) => baseOf(e.data.exercise) === name
+    );
+    const prevExact = prevByExercise[chosen];
+    const prevFallback = !prevExact ? prevByBase[name] : undefined;
+    const suggestion = suggestNext(ex, prevExact);
+    const letter = ss ? ssLetter(ss.pos) : null;
+    const nextLetter = ss && ss.pos < ss.total - 1 ? ssLetter(ss.pos + 1) : null;
+    const gapS = nextLetter ? SUPERSET_SWITCH : restS;
+    const gapLabel = nextLetter ? `Go to ${nextLetter}` : "Rest";
+    return (
+      <section
+        key={name}
+        className={`rounded-3xl border p-4 ${
+          done ? "border-[#DBFF4A]/40 bg-zinc-900/70" : "border-zinc-800 bg-zinc-900/50"
+        }`}
+      >
+        <div className="mb-1 flex items-start justify-between gap-2">
+          <h3 className="flex items-center gap-2 text-base font-extrabold uppercase leading-snug tracking-tight">
+            {letter && (
+              <span
+                className="grid h-5 w-5 shrink-0 place-items-center rounded-md text-[11px] font-black"
+                style={{ background: CYAN, color: "#0a0a0a" }}
+              >
+                {letter}
+              </span>
+            )}
+            {chosen}
+          </h3>
+          {done && (
+            <span
+              className="shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-black uppercase"
+              style={{ background: LIME, color: "#0a0a0a" }}
+            >
+              Logged ✓
+            </span>
+          )}
+        </div>
+
+        {/* swap + equipment + rest timer row */}
+        <div className="mb-2 flex flex-wrap items-center gap-2">
+          {vlist.length > 1 && (
+            <label className="relative inline-flex items-center">
+              <span
+                className="pointer-events-none absolute left-2.5 flex items-center gap-1 text-[10px] font-black uppercase tracking-wider"
+                style={{ color: LIME }}
+              >
+                <Icon d={ICON_SWAP} className="h-3 w-3" />
+                Swap
+              </span>
+              <select
+                value={chosen}
+                onChange={(e) => chooseVariant(name, e.target.value)}
+                className="appearance-none rounded-full border border-zinc-700 bg-zinc-900 py-1.5 pl-16 pr-3 text-[11px] font-bold text-zinc-200 outline-none focus:border-[#DBFF4A]/60"
+              >
+                {vlist.map((v) => (
+                  <option key={v.name} value={v.name}>
+                    {v.name} · {v.equipment}
+                  </option>
+                ))}
+              </select>
+            </label>
+          )}
+          {cv.equipment && (
+            <span className="rounded-full border border-zinc-700 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-zinc-400">
+              {cv.equipment}
+            </span>
+          )}
+          <button
+            onClick={() => startTimer(chosen, gapS, gapLabel)}
+            className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-zinc-700 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-zinc-300 hover:border-[#DBFF4A]/60"
+            title={nextLetter ? `No rest — go straight to ${nextLetter}` : "Start rest timer"}
+          >
+            <Icon d={ICON_CLOCK} className="h-3 w-3" />
+            {nextLetter ? gapLabel : `Rest ${rest}`}
+          </button>
+        </div>
+
+        <p className="text-xs font-semibold text-zinc-400">
+          {sets} sets × {reps}
+        </p>
+        <p className="mt-1 text-xs leading-relaxed text-zinc-500">{cue}</p>
+
+        {/* setup mini-guide — follows the selected equipment */}
+        <div className="mt-2 flex gap-2 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2.5">
+          <span className="mt-0.5 shrink-0 text-zinc-500">
+            <Icon d={ICON_INFO} className="h-3.5 w-3.5" />
+          </span>
+          <p className="text-[11px] leading-relaxed text-zinc-400">
+            <span className="font-black uppercase tracking-wider text-zinc-500">
+              Setup ·{" "}
+            </span>
+            {cv.setup}
+          </p>
+        </div>
+
+        {prevFallback && !done && (
+          <p className="mt-2 text-[11px] font-semibold text-zinc-500">
+            Last time you did{" "}
+            <span style={{ color: traineeMeta.color }}>
+              {prevFallback.data.exercise}
+            </span>{" "}
+            here ({entryTopWeight(prevFallback) ?? "?"} kg,{" "}
+            {niceDate(prevFallback.entry_date)}) — no log yet for this variation.
+          </p>
+        )}
+
+        {suggestion && !done && (
+          <button
+            onClick={() => {
+              if (suggestion.fill) {
+                const rows = f.rows.map((r) =>
+                  r.weight ? r : { ...r, weight: suggestion.fill! }
+                );
+                setForms((all) => ({ ...all, [chosen]: { ...f, rows } }));
+              }
+            }}
+            className="mt-2 block w-full rounded-xl border border-dashed px-3 py-2 text-left text-[11px] font-bold"
+            style={{ borderColor: "rgba(219,255,74,.4)", color: LIME }}
+          >
+            ▲ {suggestion.text}
+            <span className="block text-[10px] font-medium text-zinc-500">
+              tap to fill all sets
+            </span>
+          </button>
+        )}
+
+        {done && loggedEntry ? (
+          <div className="mt-3 space-y-1">
+            {(loggedEntry.data.setsDetail ?? []).map((s, i) => (
+              <div
+                key={i}
+                className="flex items-baseline justify-between rounded-lg bg-zinc-900 px-3 py-1.5 text-xs"
+              >
+                <span className="font-bold text-zinc-500">SET {i + 1}</span>
+                <span className="font-bold text-zinc-200">
+                  {s.weight || "—"} kg × {s.reps || "—"}
+                </span>
+              </div>
+            ))}
+            {!loggedEntry.data.setsDetail && (
+              <p className="text-xs text-zinc-400">
+                {loggedEntry.data.weight} kg · {loggedEntry.data.sets}×
+                {loggedEntry.data.reps}
+              </p>
+            )}
+            {loggedEntry.data.rir && (
+              <p className="text-[11px] text-zinc-500">RIR {loggedEntry.data.rir}</p>
+            )}
+            {loggedEntry.data.notes && (
+              <p className="text-[11px] text-zinc-500">{loggedEntry.data.notes}</p>
+            )}
+          </div>
+        ) : (
+          <>
+            {/* per-set rows */}
+            <div className="mt-3">
+              <div className="mb-1 grid grid-cols-[44px_1fr_1fr_1fr] items-center gap-2 px-1 text-[10px] font-black uppercase tracking-wider text-zinc-600">
+                <span>Set</span>
+                <span>Previous</span>
+                <span>Kg</span>
+                <span>Reps</span>
+              </div>
+              <div className="space-y-1.5">
+                {f.rows.map((row, i) => {
+                  const prev = prevSetFor(chosen, i);
+                  return (
+                    <div
+                      key={i}
+                      className="grid grid-cols-[44px_1fr_1fr_1fr] items-center gap-2"
+                    >
+                      <span
+                        className="text-center text-sm font-black"
+                        style={{ color: row.weight || row.reps ? LIME : "#52525b" }}
+                      >
+                        {i + 1}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          prev &&
+                          setRow(chosen, nSets, i, {
+                            weight: prev.weight,
+                            reps: /^\d+$/.test(prev.reps) ? prev.reps : "",
+                          })
+                        }
+                        className="truncate rounded-lg bg-zinc-900 px-2 py-2 text-left text-[11px] font-semibold text-zinc-500 hover:text-zinc-300"
+                      >
+                        {prev ? `${prev.weight || "?"} kg × ${prev.reps || "?"}` : "—"}
+                      </button>
+                      <input
+                        value={row.weight}
+                        onChange={(e) =>
+                          setRow(chosen, nSets, i, { weight: e.target.value }, gapS, gapLabel)
+                        }
+                        inputMode="decimal"
+                        placeholder={prev?.weight || "kg"}
+                        className="rounded-lg border border-zinc-800 bg-zinc-900 px-2 py-2 text-center text-sm font-bold outline-none focus:border-[#DBFF4A]/60"
+                      />
+                      <select
+                        value={row.reps}
+                        onChange={(e) =>
+                          setRow(chosen, nSets, i, { reps: e.target.value }, gapS, gapLabel)
+                        }
+                        className="appearance-none rounded-lg border border-zinc-800 bg-zinc-900 px-2 py-2 text-center text-sm font-bold outline-none focus:border-[#DBFF4A]/60"
+                      >
+                        <option value="">–</option>
+                        {REPS_OPTS.map((o) => (
+                          <option key={o} value={o}>
+                            {o}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="mt-2 grid grid-cols-[90px_1fr] gap-2">
+              <label className="block">
+                <span className="mb-1 block text-[10px] font-bold uppercase text-zinc-500">
+                  RIR (last set)
+                </span>
+                <select
+                  value={f.rir}
+                  onChange={(e) => setMeta(chosen, nSets, { rir: e.target.value })}
+                  className={selectCls}
+                >
+                  <option value="">–</option>
+                  {RIR_OPTS.map((o) => (
+                    <option key={o} value={o}>
+                      {o}
+                    </option>
+                  ))}
+                </select>
+              </label>
+              <label className="block">
+                <span className="mb-1 block text-[10px] font-bold uppercase text-zinc-500">
+                  Notes
+                </span>
+                <input
+                  value={f.notes}
+                  onChange={(e) => setMeta(chosen, nSets, { notes: e.target.value })}
+                  placeholder="Went up on set 2…"
+                  className={inputCls}
+                />
+              </label>
+            </div>
+
+            <button
+              onClick={() => saveExercise(ex, chosen)}
+              disabled={saving[chosen] || !f.rows.some((r) => r.weight)}
+              className="mt-3 w-full rounded-xl py-2.5 text-sm font-black uppercase tracking-wide transition disabled:opacity-40"
+              style={{ background: LIME, color: "#0a0a0a" }}
+            >
+              {saving[chosen]
+                ? "Saving…"
+                : `Save ${f.rows.filter((r) => r.weight).length || ""} set${
+                    f.rows.filter((r) => r.weight).length === 1 ? "" : "s"
+                  } · ${traineeMeta.name}`}
+            </button>
+          </>
+        )}
+      </section>
+    );
+  };
+
   return (
     <main className="mx-auto min-h-screen max-w-2xl px-4 pb-28 pt-5">
       {/* ============ DAILY START SCREEN ============ */}
@@ -789,7 +1096,7 @@ export default function Home() {
             </span>
             <div className="min-w-0 flex-1">
               <p className="truncate text-[10px] font-black uppercase tracking-wider text-zinc-500">
-                Rest · {timer.ex}
+                {timer.label} · {timer.ex}
               </p>
               <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-zinc-800">
                 <div
@@ -965,6 +1272,7 @@ export default function Home() {
             {days.map((d, i) => {
               const [main, sub] = d.name.split("—").map((s) => s.trim());
               const active = i === dayIdx && adaptive.kind !== "recovery";
+              const nSuper = groupBlocks(d.exercises).filter((b) => b.ss).length;
               return (
                 <button
                   key={d.name}
@@ -986,6 +1294,12 @@ export default function Home() {
                   <span className="mt-0.5 block text-[11px] font-medium text-zinc-500">{sub ?? ""}</span>
                   <span className="mt-1.5 block text-[10px] font-semibold uppercase tracking-wider text-zinc-600">
                     {d.exercises.length} exercises
+                    {nSuper > 0 && (
+                      <span style={{ color: CYAN }}>
+                        {" "}
+                        · {nSuper} superset{nSuper === 1 ? "" : "s"}
+                      </span>
+                    )}
                   </span>
                 </button>
               );
@@ -994,275 +1308,32 @@ export default function Home() {
 
           {/* exercise cards with per-set rows */}
           <div className="space-y-4">
-            {(day?.exercises ?? []).map((ex) => {
-              const [name, sets, reps, rest, cue] = ex;
-              const nSets = parseInt(sets) || 3;
-              const restS = restSeconds(rest);
-              const vlist: Variant[] = VMAP[name]?.variants ?? [
-                { name, equipment: "", setup: cue },
-              ];
-              const chosen =
-                variantSel[name] && vlist.some((v) => v.name === variantSel[name])
-                  ? variantSel[name]
-                  : vlist[0].name;
-              const cv = vlist.find((v) => v.name === chosen)!;
-              const f = formFor(chosen, nSets);
-              const done = loggedOnSelected.has(name);
-              const loggedEntry = selectedDayEntriesMine.find(
-                (e) => baseOf(e.data.exercise) === name
-              );
-              const prevExact = prevByExercise[chosen];
-              const prevFallback = !prevExact ? prevByBase[name] : undefined;
-              const suggestion = suggestNext(ex, prevExact);
-              return (
-                <section
-                  key={name}
-                  className={`rounded-3xl border p-4 ${
-                    done ? "border-[#DBFF4A]/40 bg-zinc-900/70" : "border-zinc-800 bg-zinc-900/50"
-                  }`}
+            {groupBlocks(day?.exercises ?? []).map((b) =>
+              b.ss ? (
+                <div
+                  key={`ss-${day?.name}-${b.ss}`}
+                  className="rounded-[28px] border border-dashed p-2.5"
+                  style={{ borderColor: "rgba(90,215,255,.45)" }}
                 >
-                  <div className="mb-1 flex items-start justify-between gap-2">
-                    <h3 className="text-base font-extrabold uppercase leading-snug tracking-tight">
-                      {chosen}
-                    </h3>
-                    {done && (
-                      <span
-                        className="shrink-0 rounded-full px-2.5 py-0.5 text-[10px] font-black uppercase"
-                        style={{ background: LIME, color: "#0a0a0a" }}
-                      >
-                        Logged ✓
-                      </span>
-                    )}
-                  </div>
-
-                  {/* swap + equipment + rest timer row */}
-                  <div className="mb-2 flex flex-wrap items-center gap-2">
-                    {vlist.length > 1 && (
-                      <label className="relative inline-flex items-center">
-                        <span
-                          className="pointer-events-none absolute left-2.5 flex items-center gap-1 text-[10px] font-black uppercase tracking-wider"
-                          style={{ color: LIME }}
-                        >
-                          <Icon d={ICON_SWAP} className="h-3 w-3" />
-                          Swap
-                        </span>
-                        <select
-                          value={chosen}
-                          onChange={(e) => chooseVariant(name, e.target.value)}
-                          className="appearance-none rounded-full border border-zinc-700 bg-zinc-900 py-1.5 pl-16 pr-3 text-[11px] font-bold text-zinc-200 outline-none focus:border-[#DBFF4A]/60"
-                        >
-                          {vlist.map((v) => (
-                            <option key={v.name} value={v.name}>
-                              {v.name} · {v.equipment}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    )}
-                    {cv.equipment && (
-                      <span className="rounded-full border border-zinc-700 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-zinc-400">
-                        {cv.equipment}
-                      </span>
-                    )}
-                    <button
-                      onClick={() => startTimer(chosen, restS)}
-                      className="ml-auto inline-flex items-center gap-1.5 rounded-full border border-zinc-700 px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-zinc-300 hover:border-[#DBFF4A]/60"
-                      title="Start rest timer"
+                  <div className="mb-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 px-1.5 pt-0.5">
+                    <span
+                      className="text-[10px] font-black uppercase tracking-wider"
+                      style={{ color: CYAN }}
                     >
-                      <Icon d={ICON_CLOCK} className="h-3 w-3" />
-                      Rest {rest}
-                    </button>
-                  </div>
-
-                  <p className="text-xs font-semibold text-zinc-400">
-                    {sets} sets × {reps}
-                  </p>
-                  <p className="mt-1 text-xs leading-relaxed text-zinc-500">{cue}</p>
-
-                  {/* setup mini-guide — follows the selected equipment */}
-                  <div className="mt-2 flex gap-2 rounded-xl border border-zinc-800 bg-zinc-950/60 p-2.5">
-                    <span className="mt-0.5 shrink-0 text-zinc-500">
-                      <Icon d={ICON_INFO} className="h-3.5 w-3.5" />
+                      Superset · {b.items.map((_, i) => ssLetter(i)).join(" + ")}
                     </span>
-                    <p className="text-[11px] leading-relaxed text-zinc-400">
-                      <span className="font-black uppercase tracking-wider text-zinc-500">
-                        Setup ·{" "}
-                      </span>
-                      {cv.setup}
-                    </p>
+                    <span className="text-[10px] font-medium text-zinc-500">
+                      alternate — rest only after {ssLetter(b.items.length - 1)}
+                    </span>
                   </div>
-
-                  {prevFallback && !done && (
-                    <p className="mt-2 text-[11px] font-semibold text-zinc-500">
-                      Last time you did{" "}
-                      <span style={{ color: traineeMeta.color }}>
-                        {prevFallback.data.exercise}
-                      </span>{" "}
-                      here ({entryTopWeight(prevFallback) ?? "?"} kg,{" "}
-                      {niceDate(prevFallback.entry_date)}) — no log yet for this variation.
-                    </p>
-                  )}
-
-                  {suggestion && !done && (
-                    <button
-                      onClick={() => {
-                        if (suggestion.fill) {
-                          const rows = f.rows.map((r) =>
-                            r.weight ? r : { ...r, weight: suggestion.fill! }
-                          );
-                          setForms((all) => ({ ...all, [chosen]: { ...f, rows } }));
-                        }
-                      }}
-                      className="mt-2 block w-full rounded-xl border border-dashed px-3 py-2 text-left text-[11px] font-bold"
-                      style={{ borderColor: "rgba(219,255,74,.4)", color: LIME }}
-                    >
-                      ▲ {suggestion.text}
-                      <span className="block text-[10px] font-medium text-zinc-500">
-                        tap to fill all sets
-                      </span>
-                    </button>
-                  )}
-
-                  {done && loggedEntry ? (
-                    <div className="mt-3 space-y-1">
-                      {(loggedEntry.data.setsDetail ?? []).map((s, i) => (
-                        <div
-                          key={i}
-                          className="flex items-baseline justify-between rounded-lg bg-zinc-900 px-3 py-1.5 text-xs"
-                        >
-                          <span className="font-bold text-zinc-500">SET {i + 1}</span>
-                          <span className="font-bold text-zinc-200">
-                            {s.weight || "—"} kg × {s.reps || "—"}
-                          </span>
-                        </div>
-                      ))}
-                      {!loggedEntry.data.setsDetail && (
-                        <p className="text-xs text-zinc-400">
-                          {loggedEntry.data.weight} kg · {loggedEntry.data.sets}×
-                          {loggedEntry.data.reps}
-                        </p>
-                      )}
-                      {loggedEntry.data.rir && (
-                        <p className="text-[11px] text-zinc-500">RIR {loggedEntry.data.rir}</p>
-                      )}
-                      {loggedEntry.data.notes && (
-                        <p className="text-[11px] text-zinc-500">{loggedEntry.data.notes}</p>
-                      )}
-                    </div>
-                  ) : (
-                    <>
-                      {/* per-set rows */}
-                      <div className="mt-3">
-                        <div className="mb-1 grid grid-cols-[44px_1fr_1fr_1fr] items-center gap-2 px-1 text-[10px] font-black uppercase tracking-wider text-zinc-600">
-                          <span>Set</span>
-                          <span>Previous</span>
-                          <span>Kg</span>
-                          <span>Reps</span>
-                        </div>
-                        <div className="space-y-1.5">
-                          {f.rows.map((row, i) => {
-                            const prev = prevSetFor(chosen, i);
-                            return (
-                              <div
-                                key={i}
-                                className="grid grid-cols-[44px_1fr_1fr_1fr] items-center gap-2"
-                              >
-                                <span
-                                  className="text-center text-sm font-black"
-                                  style={{ color: row.weight || row.reps ? LIME : "#52525b" }}
-                                >
-                                  {i + 1}
-                                </span>
-                                <button
-                                  type="button"
-                                  onClick={() =>
-                                    prev &&
-                                    setRow(chosen, nSets, i, {
-                                      weight: prev.weight,
-                                      reps: /^\d+$/.test(prev.reps) ? prev.reps : "",
-                                    })
-                                  }
-                                  className="truncate rounded-lg bg-zinc-900 px-2 py-2 text-left text-[11px] font-semibold text-zinc-500 hover:text-zinc-300"
-                                >
-                                  {prev ? `${prev.weight || "?"} kg × ${prev.reps || "?"}` : "—"}
-                                </button>
-                                <input
-                                  value={row.weight}
-                                  onChange={(e) =>
-                                    setRow(chosen, nSets, i, { weight: e.target.value }, restS)
-                                  }
-                                  inputMode="decimal"
-                                  placeholder={prev?.weight || "kg"}
-                                  className="rounded-lg border border-zinc-800 bg-zinc-900 px-2 py-2 text-center text-sm font-bold outline-none focus:border-[#DBFF4A]/60"
-                                />
-                                <select
-                                  value={row.reps}
-                                  onChange={(e) =>
-                                    setRow(chosen, nSets, i, { reps: e.target.value }, restS)
-                                  }
-                                  className="appearance-none rounded-lg border border-zinc-800 bg-zinc-900 px-2 py-2 text-center text-sm font-bold outline-none focus:border-[#DBFF4A]/60"
-                                >
-                                  <option value="">–</option>
-                                  {REPS_OPTS.map((o) => (
-                                    <option key={o} value={o}>
-                                      {o}
-                                    </option>
-                                  ))}
-                                </select>
-                              </div>
-                            );
-                          })}
-                        </div>
-                      </div>
-
-                      <div className="mt-2 grid grid-cols-[90px_1fr] gap-2">
-                        <label className="block">
-                          <span className="mb-1 block text-[10px] font-bold uppercase text-zinc-500">
-                            RIR (last set)
-                          </span>
-                          <select
-                            value={f.rir}
-                            onChange={(e) => setMeta(chosen, nSets, { rir: e.target.value })}
-                            className={selectCls}
-                          >
-                            <option value="">–</option>
-                            {RIR_OPTS.map((o) => (
-                              <option key={o} value={o}>
-                                {o}
-                              </option>
-                            ))}
-                          </select>
-                        </label>
-                        <label className="block">
-                          <span className="mb-1 block text-[10px] font-bold uppercase text-zinc-500">
-                            Notes
-                          </span>
-                          <input
-                            value={f.notes}
-                            onChange={(e) => setMeta(chosen, nSets, { notes: e.target.value })}
-                            placeholder="Went up on set 2…"
-                            className={inputCls}
-                          />
-                        </label>
-                      </div>
-
-                      <button
-                        onClick={() => saveExercise(ex, chosen)}
-                        disabled={saving[chosen] || !f.rows.some((r) => r.weight)}
-                        className="mt-3 w-full rounded-xl py-2.5 text-sm font-black uppercase tracking-wide transition disabled:opacity-40"
-                        style={{ background: LIME, color: "#0a0a0a" }}
-                      >
-                        {saving[chosen]
-                          ? "Saving…"
-                          : `Save ${f.rows.filter((r) => r.weight).length || ""} set${
-                              f.rows.filter((r) => r.weight).length === 1 ? "" : "s"
-                            } · ${traineeMeta.name}`}
-                      </button>
-                    </>
-                  )}
-                </section>
-              );
-            })}
+                  <div className="space-y-2.5">
+                    {b.items.map((ex, i) => exerciseCard(ex, { pos: i, total: b.items.length }))}
+                  </div>
+                </div>
+              ) : (
+                exerciseCard(b.items[0])
+              )
+            )}
           </div>
         </>
       )}
