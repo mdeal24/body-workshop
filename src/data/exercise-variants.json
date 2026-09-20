@@ -59,12 +59,6 @@
     { "name": "Overhead Tricep Ext (Band)", "equipment": "Bands", "setup": "Anchor the band low behind you, press overhead. Elbows stay tucked by your ears the whole set." },
     { "name": "Skull Crushers (EZ Bar)", "equipment": "Barbell", "setup": "Lie on a bench, EZ bar over your forehead. Lower to just behind the crown of the head, elbows fixed, press back up." }
   ]},
-  "Pallof Press (Cable)": { "variants": [
-    { "name": "Pallof Press (Cable)", "equipment": "Cable", "setup": "Handle at chest height, stand side-on to the stack, feet shoulder-width. Press straight out and resist the pull to rotate. Switch sides." },
-    { "name": "Pallof Press (Band)", "equipment": "Bands", "setup": "Loop a band around an upright at chest height. Step out for tension, press straight out, resist rotation." },
-    { "name": "Dead Bug", "equipment": "Bodyweight", "setup": "On your back, arms and knees up. Lower opposite arm and leg while pressing your low back into the floor. Anti-rotation substitute." },
-    { "name": "Plank with Reach", "equipment": "Bodyweight", "setup": "From a forearm plank, reach one arm forward without letting the hips rotate. Alternate sides slowly." }
-  ]},
   "Trap Bar Deadlift": { "variants": [
     { "name": "Trap Bar Deadlift", "equipment": "Trap Bar", "setup": "Stand centred inside the bar, handles at your sides. Brace hard, push the floor away — the neutral grip and centred load spare the spine." },
     { "name": "Conventional Deadlift", "equipment": "Barbell", "setup": "Bar over mid-foot, grip just outside legs, hips higher than knees. Brace, drag the bar up your shins, squeeze glutes at lockout." },
@@ -131,12 +125,6 @@
     { "name": "Cable Curl (Behind-Body)", "equipment": "Cable", "setup": "Low pulley behind you, arm slightly back to mimic the incline stretch position." },
     { "name": "Barbell Curl (EZ)", "equipment": "Barbell", "setup": "EZ bar, hands at the angled grips, elbows pinned to your sides. Strict — no swinging." }
   ]},
-  "Dead Bug": { "variants": [
-    { "name": "Dead Bug", "equipment": "Bodyweight", "setup": "On your back, arms up, knees at 90°. Press the low back into the floor and lower opposite arm and leg. Slow and controlled." },
-    { "name": "Dead Bug (Band Anchored)", "equipment": "Bands", "setup": "Hold a band anchored behind your head under light tension while performing the dead bug — the anti-extension bias increases." },
-    { "name": "Bird Dog", "equipment": "Bodyweight", "setup": "On all fours, extend opposite arm and leg without the hips tipping. Pause 2 sec each rep." },
-    { "name": "Pallof Press (Cable)", "equipment": "Cable", "setup": "Chest-height handle, stand side-on, press out and resist rotation. Swap when you want standing core work." }
-  ]},
   "Leg Press (Moderate Foot)": { "variants": [
     { "name": "Leg Press (Moderate Foot)", "equipment": "Machine", "setup": "Feet mid-platform, shoulder-width. Lower under control until hips begin to tuck, drive through the whole foot — quad emphasis." },
     { "name": "Hack Squat", "equipment": "Machine", "setup": "Back flat on the pad, feet mid-platform. Same quad emphasis with a fixed track." },
@@ -190,12 +178,6 @@
     { "name": "Tricep Pushdown (Straight Bar)", "equipment": "Cable", "setup": "Straight or EZ attachment, overhand grip. Roughly 25–30% heavier than your rope number." },
     { "name": "Band Pushdown", "equipment": "Bands", "setup": "Band anchored overhead, elbows pinned. High-rep friendly — chase the squeeze." },
     { "name": "Bench Dips", "equipment": "Bodyweight", "setup": "Hands on a bench behind you, legs extended. Lower until upper arms are parallel, elbows pointing straight back." }
-  ]},
-  "Ab Wheel Rollout / Plank": { "variants": [
-    { "name": "Ab Wheel Rollout", "equipment": "Bodyweight", "setup": "Kneel with the wheel under your shoulders. Roll out only as far as you can keep the low back from arching, pull back with your abs." },
-    { "name": "Plank", "equipment": "Bodyweight", "setup": "Forearms down, body in one line, glutes squeezed. Stop the set the moment your hips sag." },
-    { "name": "Cable Crunch (Kneeling)", "equipment": "Cable", "setup": "Rope on the high pulley, kneel and crunch your elbows toward your thighs — flex the spine, don't pull with arms." },
-    { "name": "Swiss Ball Rollout", "equipment": "Bodyweight", "setup": "Forearms on the ball, roll it forward keeping a rigid torso. Easier progression from the wheel." }
   ]},
   "Romanian Deadlift": { "variants": [
     { "name": "Romanian Deadlift", "equipment": "Barbell", "setup": "Bar starts at the hips. Soft knees, push the hips BACK until you feel a hamstring stretch (mid-shin), then squeeze glutes to stand. 3-sec lowering." },
@@ -262,12 +244,6 @@
     { "name": "Rope Hammer Curl (Cable)", "equipment": "Cable", "setup": "Rope on the low pulley, neutral grip, constant tension through the curl." },
     { "name": "Cross-Body Hammer Curl", "equipment": "Dumbbell", "setup": "Curl each dumbbell across your body toward the opposite shoulder — extra brachialis bias." },
     { "name": "Band Hammer Curl", "equipment": "Bands", "setup": "Stand on the band, neutral wrists, strict curls. Travel fallback." }
-  ]},
-  "Side Plank / Suitcase Carry": { "variants": [
-    { "name": "Side Plank", "equipment": "Bodyweight", "setup": "Elbow under shoulder, body in one line, hips lifted. Hold — the set ends when the hips start to drop." },
-    { "name": "Suitcase Carry (DB)", "equipment": "Dumbbell", "setup": "One heavy dumbbell at your side, walk tall without leaning. Swap hands each length — lateral core under load." },
-    { "name": "Suitcase Carry (Kettlebell)", "equipment": "Kettlebell", "setup": "Same single-side carry with a kettlebell — the offset handle adds grip work." },
-    { "name": "Side Plank (Feet Elevated)", "equipment": "Bodyweight", "setup": "Feet on a bench for a harder lever. Keep the line from head to heels." }
   ]},
   "Cable Kickback / Glute Bridge": { "variants": [
     { "name": "Cable Kickback", "equipment": "Cable", "setup": "Ankle cuff on the low pulley, hinge slightly and hold the frame. Kick back and up, squeeze 1 sec at peak — don't arch the low back." },
