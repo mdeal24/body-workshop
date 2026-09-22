@@ -1,12 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getDb } from "@/lib/db";
+import { noDb, seedEntries } from "@/lib/dev-seed";
 
 export const dynamic = "force-dynamic";
 
 export async function GET(req: NextRequest) {
-  const sql = getDb();
   const loggedBy = req.nextUrl.searchParams.get("logged_by");
   const exercise = req.nextUrl.searchParams.get("exercise");
+  if (noDb()) {
+    const rows = seedEntries().filter(
+      (r) =>
+        (!loggedBy || r.logged_by === loggedBy) &&
+        (!exercise || r.data.exercise === exercise)
+    );
+    return NextResponse.json(rows.slice(0, 500));
+  }
+  const sql = getDb();
 
   const rows = await sql`
     SELECT id, logged_by, entry_date::text AS entry_date, data, created_at
