@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import guideData from "@/data/guide-data.json";
 import variantsData from "@/data/exercise-variants.json";
+import nutritionData from "@/data/nutrition.json";
 
 /** name, sets, reps, rest, cue, and an optional superset tag shared by the block. */
 type Exercise = [string, string, string, string, string, string?];
@@ -29,6 +30,18 @@ type Entry = {
     setsDetail?: SetDetail[];
     base?: string;
   };
+};
+type FoodEntry = {
+  id: string;
+  entry_date: string;
+  data: { food: string; kcal: number; protein: number; servings: number; unit?: string };
+};
+type Staple = { name: string; unit: string; kcal: number; protein: number };
+type FoodForm = { food: string; unit: string; kcal: string; protein: string; servings: string };
+const EMPTY_FOOD: FoodForm = { food: "", unit: "", kcal: "", protein: "", servings: "1" };
+const NUTRITION = nutritionData as {
+  targets: Record<string, { kcal: number; protein: number }>;
+  staples: Staple[];
 };
 type SummaryRow = { entry_date: string; logged_by: string; n: number };
 type Variant = { name: string; equipment: string; setup: string };
@@ -239,7 +252,7 @@ function suggestNext(
 }
 
 export default function Home() {
-  const [tab, setTab] = useState<"workout" | "history" | "guide" | "calendar">("workout");
+  const [tab, setTab] = useState<"workout" | "food" | "history" | "guide" | "calendar">("workout");
   const [guideTab, setGuideTab] = useState("track");
   const [trainee, setTrainee] = useState<string>("male");
   const [programs, setPrograms] = useState<Program[]>([]);
@@ -317,6 +330,13 @@ export default function Home() {
     setTab("workout");
     pickDate(today);
   }
+
+  // calorie log for the selected trainee + date
+  const [foodEntries, setFoodEntries] = useState<FoodEntry[]>([]);
+  const [foodForm, setFoodForm] = useState<FoodForm>(EMPTY_FOOD);
+  const [foodBusy, setFoodBusy] = useState(false);
+  const [foodErr, setFoodErr] = useState("");
+  const servingsRef = useRef<HTMLInputElement>(null);
 
   const [calMonth, setCalMonth] = useState(() => {
     const n = new Date();
@@ -622,6 +642,118 @@ export default function Home() {
     loadEntries();
     loadWeekSummary();
   }
+
+  /* ---------- calorie log ---------- */
+  const foodKey = `${trainee}|${selectedDate}`;
+  const foodKeyRef = useRef(foodKey);
+  foodKeyRef.current = foodKey;
+
+  const loadFood = useCallback(() => {
+    const key = `${trainee}|${selectedDate}`;
+    fetch(`/api/food?logged_by=${trainee}&date=${selectedDate}`, { cache: "no-store" })
+      .then((r) => r.json())
+      .then((data) => {
+        if (foodKeyRef.current === key) setFoodEntries(Array.isArray(data) ? data : []);
+      })
+      .catch(() => {
+        if (foodKeyRef.current === key) setFoodEntries([]);
+      });
+  }, [trainee, selectedDate]);
+
+  useEffect(() => {
+    if (tab !== "food") return;
+    setFoodEntries([]);
+    setFoodErr("");
+    loadFood();
+  }, [tab, loadFood]);
+
+  async function postFood(data: FoodEntry["data"]): Promise<boolean> {
+    const res = await fetch("/api/food", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ loggedBy: trainee, entryDate: selectedDate, data }),
+    }).catch(() => null);
+    if (!res?.ok) {
+      const body = await res?.json().catch(() => null);
+      setFoodErr(body?.error ?? "Couldn't save — check your connection and try again.");
+      return false;
+    }
+    return true;
+  }
+
+  const foodServings = parseFloat(foodForm.servings) || 0;
+  const foodKcal = parseFloat(foodForm.kcal);
+  const foodProtein = parseFloat(foodForm.protein) || 0;
+  const foodValid =
+    foodForm.food.trim() !== "" && !isNaN(foodKcal) && foodKcal >= 0 && foodServings > 0;
+
+  async function addFood() {
+    if (!foodValid || foodBusy) return;
+    setFoodBusy(true);
+    setFoodErr("");
+    const ok = await postFood({
+      food: foodForm.food.trim(),
+      kcal: Math.round(foodKcal * foodServings),
+      protein: Math.round(foodProtein * foodServings * 10) / 10,
+      servings: foodServings,
+      ...(foodForm.unit ? { unit: foodForm.unit } : {}),
+    });
+    setFoodBusy(false);
+    if (ok) {
+      setFoodForm(EMPTY_FOOD);
+      loadFood();
+    }
+  }
+
+  function pickStaple(s: Staple) {
+    setFoodErr("");
+    setFoodForm({
+      food: s.name,
+      unit: s.unit,
+      kcal: String(s.kcal),
+      protein: String(s.protein),
+      servings: "1",
+    });
+    setTimeout(() => servingsRef.current?.select(), 0);
+  }
+
+  async function deleteFood(id: string) {
+    setFoodErr("");
+    const res = await fetch(`/api/food?id=${encodeURIComponent(id)}`, { method: "DELETE" }).catch(
+      () => null
+    );
+    if (!res?.ok) setFoodErr("Couldn't delete — try again.");
+    loadFood();
+  }
+
+  /** Copy the previous day's log — most days repeat the same staples. */
+  async function repeatPreviousDay() {
+    const prev = iso(addDays(fromIso(selectedDate), -1));
+    setFoodBusy(true);
+    setFoodErr("");
+    const rows: FoodEntry[] = await fetch(`/api/food?logged_by=${trainee}&date=${prev}`, {
+      cache: "no-store",
+    })
+      .then((r) => r.json())
+      .catch(() => []);
+    if (!Array.isArray(rows) || rows.length === 0) {
+      setFoodErr(`Nothing logged on ${niceDate(prev)} to copy.`);
+    } else {
+      for (const r of rows) if (!(await postFood(r.data))) break;
+    }
+    setFoodBusy(false);
+    loadFood();
+  }
+
+  const foodTarget = NUTRITION.targets[trainee] ?? { kcal: 0, protein: 0 };
+  const foodTotals = useMemo(
+    () =>
+      foodEntries.reduce(
+        (t, e) => ({ kcal: t.kcal + (e.data.kcal || 0), protein: t.protein + (e.data.protein || 0) }),
+        { kcal: 0, protein: 0 }
+      ),
+    [foodEntries]
+  );
 
   /* ---------- weekly blocks for history ---------- */
   const weeklyBlocks = useMemo(() => {
@@ -1355,6 +1487,191 @@ export default function Home() {
         </>
       )}
 
+      {/* ============ FOOD TAB (calorie + protein log) ============ */}
+      {tab === "food" && (
+        <>
+          <h2 className="text-xl font-black uppercase italic tracking-tight">
+            {traineeMeta.name}&apos;s Food
+          </h2>
+          <p className="mb-4 mt-0.5 text-xs text-zinc-500">
+            {selWeekday} {niceDate(selectedDate)} · protein first, calories second
+          </p>
+
+          {/* progress vs target */}
+          <div className="mb-5 grid grid-cols-2 gap-2.5">
+            {(
+              [
+                ["Calories", foodTotals.kcal, foodTarget.kcal, "kcal", LIME],
+                ["Protein", foodTotals.protein, foodTarget.protein, "g", CYAN],
+              ] as const
+            ).map(([label, got, target, unit, color]) => {
+              const pct = target ? Math.min(100, (got / target) * 100) : 0;
+              const left = Math.round((target - got) * 10) / 10;
+              const over = left < 0;
+              return (
+                <div key={label} className="rounded-2xl border border-zinc-800 bg-zinc-900/70 p-3.5">
+                  <p className="text-[10px] font-black uppercase tracking-wider text-zinc-500">{label}</p>
+                  <p className="mt-1 text-2xl font-black tabular-nums" style={{ color }}>
+                    {Math.round(got)}
+                    <span className="ml-1 text-xs font-bold text-zinc-500">
+                      / {target} {unit}
+                    </span>
+                  </p>
+                  <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-zinc-800">
+                    <div
+                      className="h-full rounded-full transition-all"
+                      style={{ width: `${pct}%`, background: over && label === "Calories" ? "#f97316" : color }}
+                    />
+                  </div>
+                  <p className="mt-1.5 text-[11px] font-semibold text-zinc-400">
+                    {over
+                      ? `${Math.abs(Math.round(left))} ${unit} over`
+                      : `${Math.round(left)} ${unit} to go`}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* quick add */}
+          <p className="mb-2 text-[10px] font-black uppercase tracking-wider text-zinc-500">
+            Quick add — tap a staple
+          </p>
+          <div className="mb-4 flex flex-wrap gap-1.5">
+            {NUTRITION.staples.map((s) => (
+              <button
+                key={s.name}
+                onClick={() => pickStaple(s)}
+                className="rounded-full border px-3 py-1.5 text-xs font-bold transition"
+                style={
+                  foodForm.food === s.name
+                    ? { borderColor: LIME, color: LIME, background: "rgba(219,255,74,.08)" }
+                    : { borderColor: "#27272a", color: "#d4d4d8", background: "rgba(24,24,27,.6)" }
+                }
+              >
+                {s.name}
+              </button>
+            ))}
+          </div>
+
+          {/* entry form */}
+          <div className="mb-5 rounded-2xl border border-zinc-800 bg-zinc-900/50 p-3.5">
+            <input
+              value={foodForm.food}
+              onChange={(e) => setFoodForm({ ...foodForm, food: e.target.value, unit: "" })}
+              placeholder="Food (or tap a staple above)"
+              maxLength={80}
+              className={inputCls}
+            />
+            <div className="mt-2 grid grid-cols-3 gap-2">
+              <label className="block">
+                <span className="mb-1 block text-[10px] font-bold uppercase text-zinc-500">
+                  kcal{foodForm.unit ? ` / ${foodForm.unit}` : ""}
+                </span>
+                <input
+                  value={foodForm.kcal}
+                  onChange={(e) => setFoodForm({ ...foodForm, kcal: e.target.value })}
+                  inputMode="decimal"
+                  placeholder="0"
+                  className={inputCls}
+                />
+              </label>
+              <label className="block">
+                <span className="mb-1 block text-[10px] font-bold uppercase text-zinc-500">
+                  Protein g
+                </span>
+                <input
+                  value={foodForm.protein}
+                  onChange={(e) => setFoodForm({ ...foodForm, protein: e.target.value })}
+                  inputMode="decimal"
+                  placeholder="0"
+                  className={inputCls}
+                />
+              </label>
+              <label className="block">
+                <span className="mb-1 block text-[10px] font-bold uppercase text-zinc-500">
+                  Servings
+                </span>
+                <input
+                  ref={servingsRef}
+                  value={foodForm.servings}
+                  onChange={(e) => setFoodForm({ ...foodForm, servings: e.target.value })}
+                  onKeyDown={(e) => e.key === "Enter" && addFood()}
+                  inputMode="decimal"
+                  className={inputCls}
+                />
+              </label>
+            </div>
+            <div className="mt-3 flex items-center justify-between gap-3">
+              <span className="text-xs font-semibold text-zinc-400">
+                {foodValid && foodServings !== 1
+                  ? `= ${Math.round(foodKcal * foodServings)} kcal · ${
+                      Math.round(foodProtein * foodServings * 10) / 10
+                    } g protein`
+                  : ""}
+              </span>
+              <button
+                onClick={addFood}
+                disabled={!foodValid || foodBusy}
+                className="rounded-full px-5 py-2 text-sm font-black uppercase disabled:opacity-40"
+                style={{ background: LIME, color: "#0a0a0a" }}
+              >
+                {foodBusy ? "Saving…" : "Add"}
+              </button>
+            </div>
+          </div>
+
+          {foodErr && (
+            <p className="mb-4 rounded-xl border border-orange-500/40 bg-orange-500/10 px-3 py-2 text-xs font-semibold text-orange-300">
+              {foodErr}
+            </p>
+          )}
+
+          {/* the day's log */}
+          {foodEntries.length === 0 ? (
+            <div className="rounded-2xl border border-dashed border-zinc-800 p-4 text-center">
+              <p className="text-sm text-zinc-500">Nothing logged for this day yet.</p>
+              <button
+                onClick={repeatPreviousDay}
+                disabled={foodBusy}
+                className="mt-3 rounded-full border border-zinc-700 px-4 py-1.5 text-xs font-bold uppercase text-zinc-300 disabled:opacity-40"
+              >
+                Copy previous day
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-2">
+              {foodEntries.map((e) => (
+                <div
+                  key={e.id}
+                  className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900/50 px-3.5 py-3"
+                >
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-sm font-extrabold">{e.data.food}</p>
+                    {(e.data.unit || e.data.servings !== 1) && (
+                      <p className="text-[11px] text-zinc-500">
+                        {e.data.servings} × {e.data.unit || "serving"}
+                      </p>
+                    )}
+                  </div>
+                  <div className="shrink-0 text-right text-xs font-bold tabular-nums">
+                    <p style={{ color: LIME }}>{e.data.kcal} kcal</p>
+                    <p style={{ color: CYAN }}>{e.data.protein} g P</p>
+                  </div>
+                  <button
+                    onClick={() => deleteFood(e.id)}
+                    className="h-7 w-7 shrink-0 rounded-full text-zinc-500 hover:bg-zinc-800 hover:text-zinc-200"
+                    aria-label={`Delete ${e.data.food}`}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
+        </>
+      )}
+
       {/* ============ HISTORY TAB (weekly blocks) ============ */}
       {tab === "history" && (
         <>
@@ -1699,6 +2016,7 @@ export default function Home() {
           {(
             [
               ["workout", "Workout", "M6.5 6.5h11m-11 11h11M4 9v6m16-6v6M2 10.5v3m20-3v3M9 4v16m6-16v16"],
+              ["food", "Food", "M3 3h18M5 3v5a7 7 0 0014 0V3M12 15v6m-4 0h8"],
               ["history", "History", "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"],
               ["guide", "Guide", "M12 6.25c-2-1.6-4.6-2-7-1.9v13.4c2.4-.1 5 .3 7 1.9 2-1.6 4.6-2 7-1.9V4.35c-2.4-.1-5 .3-7 1.9zm0 0v13.4"],
               ["calendar", "Calendar", "M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"],

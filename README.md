@@ -20,6 +20,14 @@ Two JSONB-flexible tables — add fields to `data` without migrations:
   block (A/B/C), alternated with no rest between them and the full rest only after the
   last move. Core/abs live in their own session and are not part of these days.
 - `workout_entries(id, logged_by, entry_date, data, created_at)` — `data` holds `{exercise, day, weight, sets, reps, rir, notes, ...}`
+- `food_entries(id, logged_by, entry_date, data, created_at)` — the Food tab's calorie log;
+  `data` holds `{food, kcal, protein, servings, unit?}` with kcal/protein already multiplied
+  out by servings. Kept apart from workouts so food never shows up in training history or
+  set counts. Created automatically by `/api/food` on first use — no re-seed needed.
+
+  Daily targets and the quick-add staples live in `src/data/nutrition.json` (bundled into
+  the app, so editing it only needs a deploy, not a seed). Targets come from the Guide's
+  sample days: Chris 2,300 kcal / 180 g protein, Maryam 1,800 kcal / 140 g.
 
 ## Env vars
 

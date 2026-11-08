@@ -1,0 +1,28 @@
+{
+  "note": "Daily targets come from the Guide's sample days (Nutrition tab). Staple values are per serving, cooked weight, rounded — close enough for tracking, not lab-grade. Edit here to change a target or add a staple; no re-seed needed.",
+  "targets": {
+    "male": { "kcal": 2300, "protein": 180 },
+    "female": { "kcal": 1800, "protein": 140 }
+  },
+  "staples": [
+    { "name": "Chicken breast", "unit": "100 g", "kcal": 165, "protein": 31 },
+    { "name": "Chicken thigh (skinless)", "unit": "100 g", "kcal": 180, "protein": 25 },
+    { "name": "Baby potatoes (skin on)", "unit": "100 g", "kcal": 90, "protein": 2 },
+    { "name": "Sweet potato", "unit": "100 g", "kcal": 90, "protein": 2 },
+    { "name": "Broccoli + green beans", "unit": "200 g", "kcal": 70, "protein": 5 },
+    { "name": "Whole egg", "unit": "1 large", "kcal": 72, "protein": 6 },
+    { "name": "Egg white", "unit": "1", "kcal": 17, "protein": 4 },
+    { "name": "Wholegrain toast", "unit": "1 slice", "kcal": 80, "protein": 4 },
+    { "name": "Greek yoghurt 0%", "unit": "100 g", "kcal": 57, "protein": 10 },
+    { "name": "Oats", "unit": "40 g", "kcal": 150, "protein": 5 },
+    { "name": "Cottage cheese (low-fat)", "unit": "100 g", "kcal": 75, "protein": 12 },
+    { "name": "Whey", "unit": "1 scoop", "kcal": 120, "protein": 24 },
+    { "name": "Avocado", "unit": "½", "kcal": 120, "protein": 2 },
+    { "name": "Almonds", "unit": "10 g", "kcal": 58, "protein": 2 },
+    { "name": "Fruit (apple/pear/kiwi)", "unit": "1", "kcal": 80, "protein": 1 },
+    { "name": "Berries", "unit": "100 g", "kcal": 50, "protein": 1 },
+    { "name": "Olive oil", "unit": "1 tsp", "kcal": 40, "protein": 0 },
+    { "name": "Honey", "unit": "1 tbsp", "kcal": 64, "protein": 0 },
+    { "name": "Sauce", "unit": "1 serve", "kcal": 45, "protein": 1 }
+  ]
+}
