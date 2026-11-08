@@ -11,7 +11,7 @@
   "programs": {
     "male": {
       "title": "Male Program — Push / Pull (4 Days)",
-      "note": "Male, 30s, average experience. Push = chest/shoulders/triceps + quads. Pull = back/biceps + posterior chain. Compound-first, joint-friendly. ~55–65 min/session.",
+      "note": "Male, 30s, average experience. Push = chest/shoulders/triceps + quads. Pull = back/biceps + posterior chain. Compound-first, joint-friendly. ~40–45 min/session. Core/abs are trained separately — not part of these sessions. Accessory work runs as supersets (letters A/B/C): alternate the pair back-to-back, rest only after the last move. Heavy compounds stay straight sets.",
       "days": [
         {
           "name": "Push A — Chest + Quads",
@@ -36,35 +36,32 @@
               "3",
               "8–12",
               "90 sec",
-              "Moderate incline (30°, not 45°+) reduces impingement. DBs allow natural wrist rotation."
+              "Moderate incline (30°, not 45°+) reduces impingement. DBs allow natural wrist rotation.",
+              "A"
             ],
             [
               "Walking Lunges (DB)",
               "3",
               "10/leg",
               "90 sec",
-              "Single-leg balance & quad strength. Addresses L/R imbalances."
+              "Single-leg balance & quad strength. Addresses L/R imbalances.",
+              "A"
             ],
             [
               "Lateral Raise (DB/Cable)",
               "3",
               "12–15",
               "60 sec",
-              "Slight forward lean + thumbs up — protects supraspinatus. Light, strict."
+              "Slight forward lean + thumbs up — protects supraspinatus. Light, strict.",
+              "B"
             ],
             [
-              "Overhead Tricep Ext (Rope)",
+              "Tricep Pushdown (Rope)",
               "2",
               "10–12",
               "60 sec",
-              "Rope = shoulder-friendly wrist. Keep elbows stable."
-            ],
-            [
-              "Pallof Press (Cable)",
-              "2",
-              "10/side",
-              "60 sec",
-              "Anti-rotation core. Protects spine under load."
+              "Rope = neutral wrist. No overhead load on the shoulder. Elbows pinned to your sides.",
+              "B"
             ]
           ]
         },
@@ -91,14 +88,16 @@
               "3",
               "8–10",
               "90 sec",
-              "SHOULDER-FRIENDLY: pull to upper chest, never behind neck. Full stretch up top."
+              "SHOULDER-FRIENDLY: pull to upper chest, never behind neck. Full stretch up top.",
+              "A"
             ],
             [
               "Leg Curl (Seated/Lying)",
               "3",
               "10–12",
-              "60 sec",
-              "Hamstring isolation. Slow 3-sec eccentric. Knee health."
+              "90 sec",
+              "Hamstring isolation. Slow 3-sec eccentric. Knee health.",
+              "A"
             ],
             [
               "Cable Face Pull",
@@ -113,13 +112,6 @@
               "10–12",
               "60 sec",
               "Full stretch at bottom. Supinate through the curl."
-            ],
-            [
-              "Dead Bug",
-              "2",
-              "8/side",
-              "60 sec",
-              "Core stability prehab. Low back pressed to floor."
             ]
           ]
         },
@@ -142,39 +134,36 @@
               "SHOULDER-FRIENDLY: seated + neutral grip reduces impingement. Stop if pinching."
             ],
             [
-              "DB Chest Fly (Flat/Sl. Incline)",
-              "3",
-              "10–12",
-              "60 sec",
-              "Elbows soft, don't drop below shoulder — protects capsule. Stretch-focused."
-            ],
-            [
               "Bulgarian Split Squat (DB)",
               "3",
               "8–10/leg",
               "90 sec",
-              "Single-leg king. Hip stability & quad/glute activation."
+              "Single-leg king. Hip stability & quad/glute activation.",
+              "A"
+            ],
+            [
+              "DB Chest Fly (Flat/Sl. Incline)",
+              "3",
+              "10–12",
+              "90 sec",
+              "Elbows soft, don't drop below shoulder — protects capsule. Stretch-focused.",
+              "A"
             ],
             [
               "Lateral Raise (Cable)",
               "3",
               "12–15",
               "60 sec",
-              "Constant tension. Lead with elbow, slight forward lean."
+              "Constant tension. Lead with elbow, slight forward lean.",
+              "B"
             ],
             [
               "Tricep Pushdown (Rope)",
               "2",
               "10–12",
               "60 sec",
-              "Rope = neutral wrist. Spread at bottom for lateral head."
-            ],
-            [
-              "Ab Wheel Rollout / Plank",
-              "2",
-              "8–10",
-              "60 sec",
-              "Anti-extension core. Protect low back."
+              "Rope = neutral wrist. Spread at bottom for lateral head.",
+              "B"
             ]
           ]
         },
@@ -201,35 +190,32 @@
               "3",
               "10–12",
               "90 sec",
-              "Glute focus. Full hip extension, 1-sec squeeze at top."
+              "Glute focus. Full hip extension, 1-sec squeeze at top.",
+              "A"
             ],
             [
               "Reverse Fly / Band Pull-Apart",
               "3",
               "15–20",
-              "60 sec",
-              "High-rep posterior prehab. Essential for desk workers."
+              "90 sec",
+              "High-rep posterior prehab. Essential for desk workers.",
+              "A"
             ],
             [
               "Seated Calf Raise",
               "3",
               "12–15",
               "60 sec",
-              "Full stretch, 2-sec pause at top. Bone-density loading."
+              "Full stretch, 2-sec pause at top. Bone-density loading.",
+              "B"
             ],
             [
               "Hammer Curl (DB)",
               "2",
               "10–12",
               "60 sec",
-              "Brachialis & forearm for balanced arms."
-            ],
-            [
-              "Side Plank / Suitcase Carry",
-              "2",
-              "20–30s/side",
-              "60 sec",
-              "Lateral core stability. Prevents compensation."
+              "Brachialis & forearm for balanced arms.",
+              "B"
             ]
           ]
         }
@@ -265,13 +251,13 @@
         ],
         [
           "Core",
-          "~4 sets/wk"
+          "separate session"
         ]
       ]
     },
     "female": {
       "title": "Female Program — Push / Pull — Back & Glute Focus",
-      "note": "Female, 30s. Aligned with the male split (same days). Pull days are heavier on back + dedicated glute work; push days stay glute-biased. Glutes hit every session. ~60–70 min/session.",
+      "note": "Female, 30s. Aligned with the male split (same days). Pull days are heavier on back + dedicated glute work; push days stay glute-biased. Glutes hit every session. ~45–50 min/session. Core/abs are trained separately — not part of these sessions. Accessory work runs as supersets (letters A/B/C): alternate the pair back-to-back, rest only after the last move. Heavy compounds stay straight sets.",
       "days": [
         {
           "name": "Push A — Chest + Quads/Glutes",
@@ -296,28 +282,32 @@
               "3",
               "10/leg",
               "90 sec",
-              "LONG stride = glute emphasis. Lean torso slightly forward."
+              "LONG stride = glute emphasis. Lean torso slightly forward.",
+              "A"
             ],
             [
               "DB Incline Press (30°)",
               "3",
               "8–12",
               "90 sec",
-              "Upper chest. Moderate incline protects shoulder."
-            ],
-            [
-              "Lateral Raise (DB/Cable)",
-              "3",
-              "12–15",
-              "60 sec",
-              "Forward lean + thumbs up. Light, strict."
+              "Upper chest. Moderate incline protects shoulder.",
+              "A"
             ],
             [
               "Cable Kickback / Glute Bridge",
               "3",
               "12–15/leg",
               "60 sec",
-              "GLUTE FINISHER. Squeeze hard at peak contraction."
+              "GLUTE FINISHER. Squeeze hard at peak contraction.",
+              "B"
+            ],
+            [
+              "Lateral Raise (DB/Cable)",
+              "3",
+              "12–15",
+              "60 sec",
+              "Forward lean + thumbs up. Light, strict.",
+              "B"
             ],
             [
               "Overhead Tricep Ext (Rope)",
@@ -358,21 +348,16 @@
               "3",
               "8–10",
               "90 sec",
-              "Zero low-back stress. Squeeze hard. Shoulder-friendly."
+              "Zero low-back stress. Squeeze hard. Shoulder-friendly.",
+              "A"
             ],
             [
               "Lying Leg Curl",
               "3",
               "10–12",
-              "60 sec",
-              "Hamstring isolation — ACL-protective. Slow 3-sec eccentric."
-            ],
-            [
-              "Cable Face Pull",
-              "3",
-              "12–15",
-              "60 sec",
-              "Rear delt & cuff — DIRECT shoulder prehab. Non-negotiable."
+              "90 sec",
+              "Hamstring isolation — ACL-protective. Slow 3-sec eccentric.",
+              "A"
             ],
             [
               "Straight-Arm Pulldown",
@@ -380,6 +365,13 @@
               "12–15",
               "60 sec",
               "Lat isolation — V-taper. Arms straight, squeeze at bottom."
+            ],
+            [
+              "Cable Face Pull",
+              "3",
+              "12–15",
+              "60 sec",
+              "Rear delt & cuff — DIRECT shoulder prehab. Non-negotiable."
             ]
           ]
         },
@@ -406,28 +398,32 @@
               "3",
               "8–10/leg",
               "90 sec",
-              "Long stance, lean forward — glute-dominant + hip stability."
+              "Long stance, lean forward — glute-dominant + hip stability.",
+              "A"
             ],
             [
               "DB Chest Fly (Slight Incline)",
               "3",
               "10–12",
-              "60 sec",
-              "Elbows soft, don't drop below shoulder. Stretch-focused."
-            ],
-            [
-              "Lateral Raise (Cable)",
-              "3",
-              "12–15",
-              "60 sec",
-              "Constant tension. Lead with elbow, slight lean."
+              "90 sec",
+              "Elbows soft, don't drop below shoulder. Stretch-focused.",
+              "A"
             ],
             [
               "Sumo Squat (DB/Goblet)",
               "3",
               "12–15",
               "60 sec",
-              "GLUTE/ADDUCTOR FINISHER. Wide stance, toes 45°. Squeeze at top."
+              "GLUTE/ADDUCTOR FINISHER. Wide stance, toes 45°. Squeeze at top.",
+              "B"
+            ],
+            [
+              "Lateral Raise (Cable)",
+              "3",
+              "12–15",
+              "60 sec",
+              "Constant tension. Lead with elbow, slight lean.",
+              "B"
             ],
             [
               "Tricep Pushdown (Rope)",
@@ -450,13 +446,6 @@
               "GLUTE + HAMSTRING stretch loading. Squeeze glutes to drive hips forward."
             ],
             [
-              "Single-Leg Hip Thrust",
-              "3",
-              "10–12/leg",
-              "60 sec",
-              "UNILATERAL GLUTE. Addresses L/R imbalance. Full lockout."
-            ],
-            [
               "Lat Pulldown (Wide) / Pull-Up",
               "3",
               "8–10",
@@ -464,39 +453,52 @@
               "WIDTH BUILDER. Wide grip. Pull to upper chest, never behind neck."
             ],
             [
-              "Close-Grip Pulldown (Neutral)",
-              "3",
-              "8–10",
-              "90 sec",
-              "Neutral grip — shoulder-friendly. Lower-lat emphasis."
-            ],
-            [
               "Single-Arm DB Row",
               "3",
               "8–10/arm",
               "60 sec",
-              "Unilateral. Opposite hand supports. Free shoulder moves naturally."
+              "Unilateral. Opposite hand supports. Free shoulder moves naturally.",
+              "A"
+            ],
+            [
+              "Single-Leg Hip Thrust",
+              "3",
+              "10–12/leg",
+              "60 sec",
+              "UNILATERAL GLUTE. Addresses L/R imbalance. Full lockout.",
+              "A"
+            ],
+            [
+              "Close-Grip Pulldown (Neutral)",
+              "3",
+              "8–10",
+              "90 sec",
+              "Neutral grip — shoulder-friendly. Lower-lat emphasis.",
+              "B"
             ],
             [
               "Cable Pull-Through",
               "3",
               "12–15",
               "60 sec",
-              "GLUTE FINISHER. Hip hinge — squeeze at full extension. Low joint impact."
+              "GLUTE FINISHER. Hip hinge — squeeze at full extension. Low joint impact.",
+              "B"
             ],
             [
               "Reverse Fly (DB/Cable)",
               "2",
               "12–15",
               "60 sec",
-              "Rear delt — DIRECT shoulder prehab. Slow eccentrics."
+              "Rear delt — DIRECT shoulder prehab. Slow eccentrics.",
+              "C"
             ],
             [
               "Hammer Curl (DB)",
               "2",
               "10–12",
               "60 sec",
-              "Brachialis & forearm. Neutral grip is shoulder-friendly."
+              "Brachialis & forearm. Neutral grip is shoulder-friendly.",
+              "C"
             ]
           ]
         }
@@ -548,7 +550,7 @@
         ],
         [
           "Core",
-          "~4 sets/wk"
+          "separate session"
         ]
       ]
     }
